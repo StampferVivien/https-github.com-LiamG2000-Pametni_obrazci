@@ -1,9 +1,17 @@
+<<<<<<< HEAD:index.js
 
    var input = document.createElement("input");
    var text_editor = document.getElementById('text_editor');
    document.addEventListener('dragstart', function (event) {
    event.dataTransfer.setData("text/html", input.outerHTML);
    
+=======
+document.addEventListener('dragstart', function (event) {
+    event.dataTransfer.setData('Text', event.target.innerHTML);
+    //event.dataTransfer.setData('Text', prozi());
+    //prozi();
+    
+>>>>>>> 67b3baee9e54e3da79dd4d66c99f15b5f05e53f3:Engine/js/index.js
   });
 
   document.addEventListener('drop', function (event) {
@@ -36,3 +44,14 @@
 }
 
 
+<<<<<<< HEAD:index.js
+=======
+ function prozi(){
+    let nekaj = document.getElementById("text");
+    var input = document.createElement("input");
+    input.type = "text";
+    input.className = "css-class-name"; // set the CSS class
+    input.setAttribute("placeholder", "Vnosno polje")
+    nekaj.appendChild(input); // put it into the DOM
+ }
+>>>>>>> 67b3baee9e54e3da79dd4d66c99f15b5f05e53f3:Engine/js/index.js
