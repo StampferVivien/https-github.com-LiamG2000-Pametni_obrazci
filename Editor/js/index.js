@@ -1,17 +1,17 @@
-/*
-document.addEventListener('dragstart', function (event) {
-    //event.dataTransfer.setData('Text', event.target.innerHTML);
-    event.dataTransfer.setData('Text', "")
-    //event.dataTransfer.setData('Text/plain', event.target.innerHTML);
 
+document.addEventListener('dragstart', function (event) {
+    event.dataTransfer.setData('Text', event.target.innerHTML);
 });
+
+
+/*
 
 document.addEventListener('drop', function (event) {
-    //prompt("!23");
-    prozi();
+    createInputField();
 
 });
-*/
+
+
 
 dragStart = (event) => {
     console.log("Started dragging");
@@ -30,6 +30,7 @@ function allowDrop(event) {
   }
   
   
+*/
 
 
 function myFunction() {
@@ -57,7 +58,7 @@ function setEndOfContenteditable(contentEditableElement) {
 }
 
 
-function prozi() {
+function createInputField() {
     let nekaj = document.getElementById("text_editor");
     var input = document.createElement("input");
     input.type = "text";

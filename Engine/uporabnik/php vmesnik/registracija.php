@@ -11,7 +11,7 @@ session_start();
     $user_name = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $slika = $_FILES['slika'];
+  
     
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT, array('cost' => 9));
     

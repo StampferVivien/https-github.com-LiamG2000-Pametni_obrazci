@@ -14,6 +14,11 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a href="index.php">Domov</a></li>
+                    <?php 
+                    if(checkAdmin($con) == true){
+                        echo '<li><a href="uporabniki.php">Uporabniki</a></li>';
+                    }
+                    ?>
                 </ul>
                 <div id="je_prijavljen"
                         style=" color: white; margin-left: 85%; font-family: 'Times New Roman', Times, serif ;font-size: 20px;">
