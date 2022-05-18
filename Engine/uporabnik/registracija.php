@@ -1,4 +1,7 @@
 <?php 
+ini_set( 'display_errors', 1 );
+error_reporting( E_ALL );
+
 session_start();
 
 	include ("config.php");
@@ -41,6 +44,23 @@ session_start();
 		}
   }
 }
+ini_set("SMTP","ssl:smtp.gmail.com" );
+ini_set("smtp_port","465");
+ini_set('sendmail_from', 'vivien.stampfer@gmail.com');          
+$to = "vivien.stampfer@gmail.com";
+$subject = "Test mail";
+$message = "Hello! This is a simple email message.";
+$from = "vivien.stampfer@gmail.com";
+$headers = "From:" . $from;
+$retval = mail($to,$subject,$message,$headers);
+   if( $retval == true )  
+   {
+      echo "Message sent successfully...";
+   }
+   else
+   {
+      echo "Message could not be sent...";
+   }
 ?>
 
 
