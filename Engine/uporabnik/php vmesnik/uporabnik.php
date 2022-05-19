@@ -42,13 +42,14 @@ session_start();
             echo "<b>Administrator: </b>" . "True";
         }
         echo '<form action="" method="post">';
-        echo '<button type="submit" name="deleteItem" value="'.$uporabnik['id'].'" />Delete</button></td>';
+        echo "<button class='btn btn-danger' type='submit' name='deleteItem' value='".$uporabnik['id']."' />Delete</button></td>";
         echo '</form>';
         
         if(isset($_POST['deleteItem']) and is_numeric($_POST['deleteItem']))
         {
             $query = "delete from uporabnik where id='$id'";
             $results = mysqli_query($con, $query);
+            header("Location: uporabniki.php");
         }
     ?>
 

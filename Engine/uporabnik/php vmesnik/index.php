@@ -30,12 +30,39 @@ session_start();
     ?>  
 
     <br>
-    <div style="background: #38a8db;" id="zaokrozi">
-        <div class="container">
-            <div class="row content">
-            </div>
+    <form method="POST">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Naziv dokumenta</label>
+          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Vnesi naziv dokumenta">
+          
         </div>
-    </div>
+        <div class="form-group" id="placljivo">
+          <label for="check">Plačljivo</label>
+          <input type="checkbox" class="form-control" value="check" name="check" onclick="myFunction(this)">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+
+    <script type="text/JavaScript">
+
+        function myFunction(me) {
+
+            let input = document.createElement("input");
+            input.setAttribute("type", "number");
+            input.setAttribute("placeholder", "Vnesi ceno");
+            let box = me;
+            let div = document.getElementById("placljivo");
+            if(box.checked == true){
+                div.appendChild(input);
+            }else{
+                div.removeChild(div.lastChild);
+            }
+        }
+    </script>
+    
+
 
 <?php
 include ("footer.php");
