@@ -28,39 +28,47 @@ session_start();
     
 		if(!empty($user_name) && !empty($hashedPassword) && !is_numeric($user_name) && !empty($email))
 		{
-
-
+      
 			$user_id = random_num(20);
       $query = "insert into uporabnik (uporabnisko_ime, email, geslo,user_id) values ('$user_name','$email','$hashedPassword', '$user_id')";
       
     
-			mysqli_query($con, $query);
+      mysqli_query($con, $query);
+      
+      posliMail();
 
 			header("Location: login.php");
-			die;
+      die;
+      
 		}else
 		{
 			echo "Please enter some valid information!";
 		}
   }
 }
-ini_set("SMTP","ssl:smtp.gmail.com" );
-ini_set("smtp_port","465");
-ini_set('sendmail_from', 'vivien.stampfer@gmail.com');          
-$to = "vivien.stampfer@gmail.com";
-$subject = "Test mail";
-$message = "Hello! This is a simple email message.";
-$from = "vivien.stampfer@gmail.com";
-$headers = "From:" . $from;
-$retval = mail($to,$subject,$message,$headers);
-   if( $retval == true )  
-   {
-      echo "Message sent successfully...";
-   }
-   else
-   {
-      echo "Message could not be sent...";
-   }
+
+
+function posliMail(){
+  ini_set("SMTP","ssl:smtp.gmail.com" );
+  ini_set("smtp_port","465");
+  ini_set('sendmail_from', 'vivien.stampfer@gmail.com');          
+  $to = $email;
+  $subject = "Test mail";
+  $message = "Hello! This is a simple email message.";
+  $from = "vivien.stampfer@gmail.com";
+  $headers = "From:" . $from;
+  $retval = mail($to,$subject,$message,$headers);
+     if( $retval == true )  
+     {
+        echo "Message sent successfully...";
+     }
+     else
+     {
+        echo "Message could not be sent...";
+     }
+}
+
+
 ?>
 
 
