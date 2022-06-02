@@ -1,74 +1,43 @@
+var inputValue = "123";
+const replaced = "";  
+tinymce.init({
+  selector: '#text_editor',
+    height: 500,
+    setup:function(ed) {
+    ed.on('change', function(e) {
+  
+    });
+  }
+    
+});
+var content_html = null;
+function get_editor_content() {
+  
+  // Get the HTML contents of the currently active editor
+  console.debug(tinyMCE.activeEditor.getContent());
+  content_html = tinyMCE.get('text_editor').getContent();
+  console.log(content_html);
+}
+function set_editor_content(){
+  content_html.replaceAll('input', 'aa');
+  const content_html_edit = content_html.replaceAll('<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="', '');
+  console.log(content_html_edit);
+  tinymce.get('text_editor').setContent(`${content_html_edit}`);
+
+
+}
+
+var shouldHandleKeyDown = true;
+function dragStart(event) {
+  event.dataTransfer.setData("text/html", event.currentTarget.id);
+  console.log(event.currentTarget.id);
+  inputValue = event.currentTarget.id;
+}
+
+var text_editor = document.getElementById('text_editor');
 
 document.addEventListener('dragstart', function (event) {
-    event.dataTransfer.setData('Text', event.target.innerHTML);
+  event.dataTransfer.setData("text/html", `<input value='${inputValue}' style='border-radius: 8px; border: 2px solid black;' readonly>`);
+  
 });
 
-
-/*
-
-document.addEventListener('drop', function (event) {
-    createInputField();
-
-});
-
-
-
-dragStart = (event) => {
-    console.log("Started dragging");
-    event.dataTransfer.setData("text", event.target.className);
-    console.log("Started dragging the element with id: " + event.dataTransfer.getData("Text"));
-    dropEvent();
-}
-
-dropEvent = (event) => {
-    let id = event.dataTransfer.getData("Text");
-    console.log("id elementa: " + id)
-}
-
-function allowDrop(event) {
-    event.preventDefault();
-  }
-  
-  
-*/
-
-
-function myFunction() {
-    setEndOfContenteditable(text_editor);
-}
-
-function setEndOfContenteditable(contentEditableElement) {
-    var range, selection;
-    if (document.createRange)//Firefox, Chrome, Opera, Safari, IE 9+
-    {
-        range = document.createRange();//Create a range (a range is a like the selection but invisible)
-        range.selectNodeContents(contentEditableElement);//Select the entire contents of the element with the range
-        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
-        selection = window.getSelection();//get the selection object (allows you to change selection)
-        selection.removeAllRanges();//remove any selections already made
-        selection.addRange(range);//make the range you have just created the visible selection
-    }
-    else if (document.selection)//IE 8 and lower
-    {
-        range = document.body.createTextRange();//Create a range (a range is a like the selection but invisible)
-        range.moveToElementText(contentEditableElement);//Select the entire contents of the element with the range
-        range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
-        range.select();//Select the range (make it the visible selection
-    }
-}
-
-
-function createInputField() {
-    let nekaj = document.getElementById("text_editor");
-    var input = document.createElement("input");
-    input.type = "text";
-    input.className = "css-class-name"; // set the CSS class
-    input.setAttribute("placeholder", placeholder()); //set placeholder text 
-    nekaj.appendChild(input); // put it into the DOM
-}
-
-
-placeholder = () => {
-    let customText = prompt("Vnesi poljubno vprašanje");
-    return customText;
-}
