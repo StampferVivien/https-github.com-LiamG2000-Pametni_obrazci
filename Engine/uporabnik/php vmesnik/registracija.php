@@ -7,6 +7,7 @@ session_start();
 	include ("config.php");
 	include ("functions.php");
 
+  
 
 	if($_SERVER['REQUEST_METHOD'] == "POST")
 	{
@@ -25,19 +26,23 @@ session_start();
       Email je ze zavzet
     </div>';
 
+
     
 		if(!empty($user_name) && !empty($hashedPassword) && !is_numeric($user_name) && !empty($email))
 		{
-      
+      $veritificationcode = substr(number_format(time()* rand(),0,"",""), 0,6);
+
 			$user_id = random_num(20);
-      $query = "insert into uporabnik (uporabnisko_ime, email, geslo,user_id) values ('$user_name','$email','$hashedPassword', '$user_id')";
+      $query = "insert into uporabnik (uporabnisko_ime, email, geslo,user_id,veritificationcode) values ('$user_name','$email','$hashedPassword', '$user_id','$veritificationcode' )";
       
     
       mysqli_query($con, $query);
       
-      posliMail();
+  
 
 			header("Location: login.php");
+       
+    posliMail($email, $veritificationcode);
       die;
       
 		}else
@@ -45,17 +50,18 @@ session_start();
 			echo "Please enter some valid information!";
 		}
   }
+  
 }
 
+function posliMail($email,$veritificationcode ){
 
-function posliMail(){
-  ini_set("SMTP","ssl:smtp.gmail.com" );
-  ini_set("smtp_port","465");
-  ini_set('sendmail_from', 'vivien.stampfer@gmail.com');          
+  ini_set("SMTP","ssl:smtp.office365.com" );
+  ini_set("smtp_port","587");
+  ini_set('sendmail_from', 'pametni.obrazci@outlook.com');          
   $to = $email;
   $subject = "Test mail";
-  $message = "Hello! This is a simple email message.";
-  $from = "vivien.stampfer@gmail.com";
+  $message = "Hello! This is a simple email message. ".$veritificationcode;
+  $from = "pametni.obrazci@outlook.com";
   $headers = "From:" . $from;
   $retval = mail($to,$subject,$message,$headers);
      if( $retval == true )  
@@ -67,6 +73,7 @@ function posliMail(){
         echo "Message could not be sent...";
      }
 }
+
 
 
 ?>
