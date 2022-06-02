@@ -1,35 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <link rel="stylesheet" href="../css/index.css">
+    <script src="https://cdn.tiny.cloud/1/lf6b19popibawemzk9qpt3cf2eqexglq9mnzakqkvi9kh17x/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <link href="src/index.css" rel="stylesheet">
+    <link href="/dist/output.css" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 </head>
-
 <body>
-
-    <ul>
-        <li><input type="text" name="" id="nameInput" draggable="true" placeholder="Ime" disabled="true" ondragstart="dragStart(event)"></li>
-        <li><input type="text" name="" id="priimekInput" draggable="true" placeholder="Priimek" disabled="true"></li>
-        <li><input type="number" name="" id="emsoInput" draggable="true" placeholder="EMSO" disabled="true"></li>
-        <li><input type="text" name="" id="customInput" draggable="true" placeholder="Poljuben tekst" disabled="true"></li>
-        <li><p draggable="true"> ___IME___ </p></li>
-        <li><p draggable="true"> ___PRIIMEK___ </p></li>
-        <li><p draggable="true"> ___EMSO___ </p></li>
-        <li><p draggable="true"> ___POLJUBNO___ </p></li>
-    </ul>
-    
-
-    <div contenteditable="true" id="text_editor" oninput="myFunction()" ondrop="dropEvent(event)">
-
+    <div class="flex">
+        <aside class="h-40 sticky top-0">
+            <div class="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
+                <ul class="space-y-2">
+                   <li>
+                      <a href="#" class="flex items-center p-2">
+                        <ion-icon name="person-outline"></ion-icon>
+                         <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input1"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Ime" ondragstart="dragStart(event)"> Ime</div></p></span>
+                      </a>
+                   </li>
+                   <li>
+                      <a href="#" class="flex items-center p-2">
+                        <ion-icon name="person"></ion-icon>
+                         <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input2"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Priimek"  ondragstart="dragStart(event)"> Priimek</div></p></span>
+                      </a>
+                   </li>
+                   <li>
+                      <a href="#" class="flex items-center p-2">
+                        <ion-icon name="id-card-outline"></ion-icon>
+                         <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input3"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="EMŠO"  ondragstart="dragStart(event)"> EMŠO</div></p></span>
+                         
+                      </a>
+                   </li>
+                   <li>
+                      <a href="#" class="flex items-center p-2">
+                        <ion-icon name="calendar-outline"></ion-icon>
+                         <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input4"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Datum"  ondragstart="dragStart(event)"> Datum</div></p></span>
+                      </a>
+                   </li>
+                   <li>
+                      <a href="#" class="flex items-center p-2">
+                        <ion-icon name="mail-outline"></ion-icon>
+                         <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input5"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Pošta"  ondragstart="dragStart(event)"> Pošta</div></p></span>
+                      </a>
+                   </li>
+                   <li>
+                      <a href="#" class="flex items-center p-2">
+                        <ion-icon name="home-outline"></ion-icon>
+                         <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input6"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Kraj"  ondragstart="dragStart(event)"> Kraj</div></p></span>
+                      </a>
+                   </li>
+                   <li>
+                      <a href="#" class="flex items-center p-2">
+                        <ion-icon name="earth-outline"></ion-icon>
+                         <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input7"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Država"  ondragstart="dragStart(event)"> Država</div></p></span>
+                      </a>
+                   </li>
+                   <li>
+                     <a href="#" class="flex items-center p-2">
+                        <ion-icon name="calendar-outline"></ion-icon>
+                        <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input8"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Telefon"  ondragstart="dragStart(event)"> Telefon</div></p></span>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="#" class="flex items-center p-2">
+                        <ion-icon name="add-circle-outline"></ion-icon>
+                        <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input8"><input draggable="true" class="hover:border-blue-500" value=" Vnesi vrednost po meri" id="input_8" ondragstart="dragStart(event)"></p></span>
+                     </a>
+                  </li>
+                 
+                </ul>
+                <button type="button" onclick="get_editor_content()">html code!</button>
+                <button type="button" onclick="set_editor_content()">vnesi html</button>
+             </div>
+        </aside>
+        <main class="flex flex-col w-screen">
+            <div contenteditable="true" id="text_editor"></div>
+        </main>
     </div>
-
-    <script src="../js/index.js"></script>
+    
+<script src="index.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
-
 </html>
