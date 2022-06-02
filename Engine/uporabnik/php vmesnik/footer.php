@@ -10,13 +10,14 @@
 </head>
 <style>
     .noga {
-    background-color: gray;
-    width: 100%;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    top: 100%;
-    bottom: 0;
+        padding: 10px;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: rgb(117, 117, 117);
+        color: white;
+        text-align: center;
     
 }
 </style>
