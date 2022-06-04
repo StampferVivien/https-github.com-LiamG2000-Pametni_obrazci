@@ -2,10 +2,9 @@ var inputValue = "123";
 const replaced = "";  
 tinymce.init({
   selector: '#text_editor',
-    height: 500,
-    setup:function(ed) {
-    ed.on('change', function(e) {
-  
+  init_instance_callback: function(editor) {
+    editor.on('drop', function(e) {
+      document.getElementById("gumb123").click();
     });
   }
     
