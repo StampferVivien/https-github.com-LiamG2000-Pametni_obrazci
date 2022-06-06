@@ -34,7 +34,106 @@ session_start();
         <div class="form-group">
           <label for="exampleInputEmail1">Naziv dokumenta</label>
           <input type="text" class="form-control" name="docName" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Vnesi naziv dokumenta">
+            <!---------------------------------------------------------------------------------------------------------------------------------------------------------->
+        <div class="flex">
+        <aside class="h-40 sticky top-0">
+            <div class="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
+                <ul class="space-y-2">
+                   <li>
+                      <a href="#" class="flex items-center p-2">
+                        <ion-icon name="person-outline"></ion-icon>
+                         <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input1"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Ime" ondragstart="dragStart(event)"> Ime</div></p></span>
+                      </a>
+                   </li>
+                   <li>
+                      <a href="#" class="flex items-center p-2">
+                        <ion-icon name="person"></ion-icon>
+                         <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input2"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Priimek"  ondragstart="dragStart(event)"> Priimek</div></p></span>
+                      </a>
+                   </li>
+                   <li>
+                      <a href="#" class="flex items-center p-2">
+                        <ion-icon name="id-card-outline"></ion-icon>
+                         <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input3"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="EMŠO"  ondragstart="dragStart(event)"> EMŠO</div></p></span>
+                         
+                      </a>
+                   </li>
+                   <li>
+                      <a href="#" class="flex items-center p-2">
+                        <ion-icon name="calendar-outline"></ion-icon>
+                         <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input4"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Datum"  ondragstart="dragStart(event)"> Datum</div></p></span>
+                      </a>
+                   </li>
+                   <li>
+                      <a href="#" class="flex items-center p-2">
+                        <ion-icon name="mail-outline"></ion-icon>
+                         <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input5"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Pošta"  ondragstart="dragStart(event)"> Pošta</div></p></span>
+                      </a>
+                   </li>
+                   <li>
+                      <a href="#" class="flex items-center p-2">
+                        <ion-icon name="home-outline"></ion-icon>
+                         <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input6"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Kraj"  ondragstart="dragStart(event)"> Kraj</div></p></span>
+                      </a>
+                   </li>
+                   <li>
+                      <a href="#" class="flex items-center p-2">
+                        <ion-icon name="earth-outline"></ion-icon>
+                         <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input7"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Država"  ondragstart="dragStart(event)"> Država</div></p></span>
+                      </a>
+                   </li>
+                   <li>
+                     <a href="#" class="flex items-center p-2">
+                        <ion-icon name="calendar-outline"></ion-icon>
+                        <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input8"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Telefon"  ondragstart="dragStart(event)"> Telefon</div></p></span>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="#" class="flex items-center p-2">
+                        <ion-icon name="add-circle-outline"></ion-icon>
+                        <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input8"><input draggable="true" class="hover:border-blue-500" value=" Vnesi vrednost po meri" id="input_8" ondragstart="dragStart(event)"></p></span>
+                     </a>
+                  </li>
+                 
+                </ul>
+                <button type="button" onclick="get_editor_content()">html code!</button>
+                <button type="button" onclick="set_editor_content()">vnesi html</button>
+             </div>
+        </aside>
+        <main class="flex flex-col w-screen">
+            <div contenteditable="true" id="text_editor"></div>
+        </main>
+    </div>
+
+    <div class="m-10">
+      <div x-data="{ showModal : false }">
+         
+          <button type="button" @click="showModal = !showModal" class="invisible" id="gumb123">Open Modal</button>
+  
           
+          <div x-show="showModal" class="fixed text-gray-500 flex items-center justify-center overflow-auto z-50 bg-black bg-opacity-40 left-0 right-0 top-0 bottom-0" x-transition:enter="transition ease duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+              
+              <div x-show="showModal" class="bg-white rounded-xl shadow-2xl p-6 sm:w-10/12 mx-10" @click.away="showModal = false;delete_input()" x-transition:enter="transition ease duration-100 transform" x-transition:enter-start="opacity-0 scale-90 translate-y-1" x-transition:enter-end="opacity-100 scale-100 translate-y-0" x-transition:leave="transition ease duration-100 transform" x-transition:leave-start="opacity-100 scale-100 translate-y-0" x-transition:leave-end="opacity-0 scale-90 translate-y-1">
+                 
+                  <span class="font-bold block text-2xl mb-3">Vpišite vprašanje</span>
+                  
+                  <input type="text" id="vprasanje_input" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+  
+                  
+                  <div class="text-right space-x-5 mt-5">
+                      <button type="button" @click="showModal = !showModal" class="px-4 py-2 text-sm bg-white rounded-xl border transition-colors duration-150 ease-linear border-gray-200 text-gray-500 focus:outline-none focus:ring-0 font-bold hover:bg-gray-50 focus:bg-indigo-50 focus:text-indigo" onclick="delete_input()">Cancel</button>
+                      <button type="button" class="px-4 py-2 text-sm bg-white rounded-xl border transition-colors duration-150 ease-linear border-gray-200 text-gray-500 focus:outline-none focus:ring-0 font-bold hover:bg-gray-50 focus:bg-indigo-50 focus:text-indigo" onclick="add_id_to_input();vpis_vprasanja()">OK</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  
+      <div class="mb-10 pb-10 border-b border-gray-200"></div>
+  </div>
+  <br><br><br><br>
+  <input id="myPhpValue" value="" />
+  <!------------------------------------------------------------------------------------------------------------------------------------------- -->
+  <button type="button" onclick="return_json()">blablabla</button>
         </div>
         <div class="form-group" id="placljivo">
           <label for="check">Plačljivo</label>

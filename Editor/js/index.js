@@ -5,6 +5,7 @@ var polje_string = "";
 var polje_inputov_id = [];
 var polje_inputov_value = [];
 var polje_vprasanj = [];
+var json_file;
 tinymce.init({
   selector: '#text_editor',
   init_instance_callback: function(editor) {
@@ -21,6 +22,7 @@ function get_editor_content() {
   content_html = tinyMCE.get('text_editor').getContent();
   console.log(content_html);
 }
+
 function set_editor_content(){
   const str = $(`<div id="parent"> ${polje_string} </div>`);
   console.log(str);
@@ -111,4 +113,10 @@ function vpis_vprasanja(){
 var vpranaje = document.getElementById("vprasanje_input").value;
 polje_vprasanj[polje_vprasanj.length] = vpranaje;
 console.log(polje_vprasanj);
+json_file = JSON.stringify(polje_vprasanj);
+document.cookie = `vprasanja=${json_file}`;
+console.log(document.cookie);
+}
+function return_json(){
+  return json_file;
 }
