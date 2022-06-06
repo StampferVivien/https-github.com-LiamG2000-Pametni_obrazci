@@ -22,6 +22,7 @@
                         echo '<li><a style="background-color: red; color: white;" href="potrditevEmail.php">Potrdi email</a></li>';
                     }
                     ?>
+                    <li><a href="datoteke.php">Moje datoteke</a></li>
                 </ul>
                 <div id="je_prijavljen"
                         style=" color: white; margin-left: 85%; font-family: 'Times New Roman', Times, serif ;font-size: 20px;">

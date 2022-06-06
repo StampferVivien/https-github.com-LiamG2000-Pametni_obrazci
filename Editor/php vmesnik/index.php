@@ -33,7 +33,7 @@ session_start();
     <form method="POST">
         <div class="form-group">
           <label for="exampleInputEmail1">Naziv dokumenta</label>
-          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Vnesi naziv dokumenta">
+          <input type="text" class="form-control" name="docName" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Vnesi naziv dokumenta">
           
         </div>
         <div class="form-group" id="placljivo">
@@ -48,17 +48,14 @@ session_start();
                 echo "Za shranjevanje je potrebno potrditi račun. To lahko storite" . ' <a href="potrditevEmail.php">tukaj</a>' ;
             }
         ?>
-        
     </form>
-
-
-
 
     <script type="text/JavaScript">
         function myFunction(me) {
             let input = document.createElement("input");
             input.setAttribute("type", "number");
             input.setAttribute("placeholder", "Vnesi ceno");
+            input.setAttribute("name", "docPrice");
             let box = me;
             let div = document.getElementById("placljivo");
             if(box.checked == true){
@@ -68,6 +65,24 @@ session_start();
             }
         }
     </script>
+
+    <?php
+        if(isset($_POST["submitbtn"])){
+            $docName = $_POST["docName"];
+            $docPrice = 0;
+            $docId = genNewDocId($con);
+            if(isset($_POST["docPrice"])){
+                $docPrice = $_POST["docPrice"];
+            }
+            $query = "insert into dokument (naziv, cena, stevilkaDokumenta) values ('$docName', '$docPrice', '$docId')";
+            if(mysqli_query($con, $query) == true){
+                echo "Datoteka uspešno shranjena. Za dostop do nje uporabite sledečo identifikacijsko številko: ";
+                echo "<br>";
+                echo $docId;
+            }
+            
+        }
+    ?>
     
 
 

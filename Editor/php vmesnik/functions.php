@@ -140,6 +140,17 @@ function pridobiUporabnike($con){
 	mysqli_close($con);
 }
 
+function genNewDocId($con){
+	$docId = rand(1000, 9999);
+	
+	$query = "select * from dokument where stevilkaDokumenta='$docId'";
+	$result = mysqli_query($con, $query);
+	if($result && mysqli_num_rows($result) == 0){
+		return $docId;
+	}else{
+		return $docId + 2;
+	}
+}
 
 
 
