@@ -30,10 +30,10 @@ session_start();
     
 		if(!empty($user_name) && !empty($hashedPassword) && !is_numeric($user_name) && !empty($email))
 		{
-      $veritificationcode = substr(number_format(time()* rand(),0,"",""), 0,6);
+      $verificationCode = substr(number_format(time()* rand(),0,"",""), 0,6);
 
 			$user_id = random_num(20);
-      $query = "insert into uporabnik (uporabnisko_ime, email, geslo,user_id,veritificationcode) values ('$user_name','$email','$hashedPassword', '$user_id','$veritificationcode' )";
+      $query = "insert into uporabnik (uporabnisko_ime, email, geslo,user_id,verificationCode) values ('$user_name','$email','$hashedPassword', '$user_id','$verificationCode' )";
       
     
       mysqli_query($con, $query);
@@ -42,7 +42,7 @@ session_start();
 
 			header("Location: login.php");
        
-    posliMail($email, $veritificationcode);
+      posliMail($email, $verificationCode);
       die;
       
 		}else

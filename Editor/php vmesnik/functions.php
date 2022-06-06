@@ -2,7 +2,6 @@
 
 function check_login($con)
 {
-
 	if(isset($_SESSION['user_id']))
 	{
 
@@ -43,6 +42,28 @@ function checkAdmin($con){
 	}
 
 	header("Location: login.php");
+	die;
+}
+
+function checkVerify($con){
+
+	if(isset($_SESSION['user_id']))
+	{
+		$id = $_SESSION['user_id'];
+		$query = "select * from uporabnik where user_id = '$id' limit 1";
+
+		$result = mysqli_query($con,$query);
+		if($result && mysqli_num_rows($result) > 0)
+		{
+			$user_data = mysqli_fetch_assoc($result);
+			if($user_data["potrjen"] == 0){
+				return false;	
+			}
+			else{
+				return true;
+			}
+		}
+	}
 	die;
 }
 
@@ -101,15 +122,16 @@ function pridobiUporabnike($con){
 		<tr>
 			<th scope="col">ID</th>
 			<th scope="col">Uporabnisko ime</th>
-			<th scope="col">email</th>
-			<th scope="col">admin</th>
+			<th scope="col">Email</th>
+			<th scope="col">Admin</th>
+			<th scope="col">Potrjen</th>
 		</tr>
 	</thead>'; 
 
 	echo '<tbody>';
 
 	while($row = mysqli_fetch_array($result)){   
-	echo "<tr><td>" . '<a href="uporabnik.php?id=' . $row["id"] . '">Uredi</a>' . "</td><td>" . $row['uporabnisko_ime'] . "</td><td>" . $row['email'] . "</td><td>" . $row['admin'] . "</td></tr>";  
+	echo "<tr><td>" . '<a href="uporabnik.php?id=' . $row["id"] . '">Uredi</a>' . "</td><td>" . $row['uporabnisko_ime'] . "</td><td>" . $row['email'] . "</td><td>" . $row['admin'] . "</td><td>" . $row['potrjen'] . "</td></tr>";  
 	}	
 
 	echo '</tbody>';

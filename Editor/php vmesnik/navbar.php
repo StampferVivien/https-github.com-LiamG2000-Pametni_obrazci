@@ -18,6 +18,9 @@
                     if(checkAdmin($con) == true){
                         echo '<li><a href="uporabniki.php">Uporabniki</a></li>';
                     }
+                    if(checkVerify($con) == false){
+                        echo '<li><a style="background-color: red; color: white;" href="potrditevEmail.php">Potrdi email</a></li>';
+                    }
                     ?>
                 </ul>
                 <div id="je_prijavljen"

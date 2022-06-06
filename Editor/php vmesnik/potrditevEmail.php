@@ -2,7 +2,6 @@
 session_start();
     include ("config.php");
     include ("functions.php");
-
     $user_data = check_login($con);
 ?>
 
@@ -27,41 +26,36 @@ session_start();
     <?php
         include ("header.php");
         include ("navBar.php");
-    ?>  
+    ?> 
 
-    <br>
-    <form method="POST">
-        <div class="form-group">
-          <label for="exampleInputEmail1">Naziv dokumenta</label>
-          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Vnesi naziv dokumenta">
-          
-        </div>
-        <div class="form-group" id="placljivo">
-          <label for="check">Plačljivo</label>
-          <input type="checkbox" class="form-control" value="check" name="check" onclick="myFunction(this)">
-        </div>
-        
-        <button type="submit" class="btn btn-primary">Submit</button>
+    <form action="" method="post">
+        <label for="verCode">Vnesite kodo, ki ste jo prejeli na elektronski naslov "<?php  echo $user_data["email"]; ?>".</label> <br>
+        <input type="number" name="verCode" id="">
+        <br>
+        <input type="submit" value="Potrdi" name="potrdi">
     </form>
 
-
-    <script type="text/JavaScript">
-
-        function myFunction(me) {
-
-            let input = document.createElement("input");
-            input.setAttribute("type", "number");
-            input.setAttribute("placeholder", "Vnesi ceno");
-            let box = me;
-            let div = document.getElementById("placljivo");
-            if(box.checked == true){
-                div.appendChild(input);
-            }else{
-                div.removeChild(div.lastChild);
-            }
+    <?php 
+        if(isset($_POST["potrdi"])){
+            $inputCode = $_POST["verCode"];
+            $userId = $user_data["id"]; 
+            $query = "select * from uporabnik where id = '$userId' limit 1";
+            $result = mysqli_query($con, $query);
+            if($result && mysqli_num_rows($result) > 0){
+			    $user_data = mysqli_fetch_assoc($result);
+			    if($user_data["verificationCode"] == $inputCode){
+                    $sql = "update uporabnik set potrjen='1' where id='$userId'";
+                    mysqli_query($con, $sql);
+			    	echo "Koda se ujema, racun je potrjen";
+                    header("Location: index.php");
+                    die;
+			    }
+			    else{
+			    	echo "Vnešena koda je neveljavna prosim poskusite znova!";
+			    }
+		}
         }
-    </script>
-    
+    ?>
 
 
 <?php

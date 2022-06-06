@@ -2,8 +2,9 @@
 session_start();
     include ("config.php");
     include ("functions.php");
-
     $user_data = check_login($con);
+    $id = $_GET["id"];
+    $uporabnik = pridobiUporabnika($con, $id);
 ?>
 
 
@@ -20,6 +21,7 @@ session_start();
     <link rel="stylesheet" href="css/Style.css" />
     <link rel="icon" href="./Slike/logo.jpg">
     <title>Pametni obrazci</title>
+    
 </head>
 
 <body>
@@ -29,8 +31,33 @@ session_start();
         include ("navBar.php");
     ?>  
 
-    
-
+    <?php
+        echo "<b>Uporabnisko ime: </b>" . $uporabnik["uporabnisko_ime"];
+        echo "<br>";
+        echo "<b>Email: </b>" . $uporabnik["email"];
+        echo "<br>";
+        if($uporabnik["admin"] == 0){
+            echo "<b>Administrator: </b>" . "False";
+        }else{
+            echo "<b>Administrator: </b>" . "True";
+        }
+        echo "<br>";
+        if($uporabnik["potrjen"] == 0){
+            echo "<b>Potrjen email: </b>" . "False";
+        }else{
+            echo "<b>Potrjen email: </b>" . "True";
+        }
+        echo '<form action="" method="post">';
+        echo "<button class='btn btn-danger' type='submit' name='deleteItem' value='".$uporabnik['id']."' />Delete</button></td>";
+        echo '</form>';
+        
+        if(isset($_POST['deleteItem']) and is_numeric($_POST['deleteItem']))
+        {
+            $query = "delete from uporabnik where id='$id'";
+            $results = mysqli_query($con, $query);
+            header("Location: uporabniki.php");
+        }
+    ?>
 
 <?php
 include ("footer.php");
