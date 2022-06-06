@@ -51,6 +51,11 @@ session_start();
     </form>
 
     <script type="text/JavaScript">
+
+        function nekaj(){
+            return 5
+        }
+
         function myFunction(me) {
             let input = document.createElement("input");
             input.setAttribute("type", "number");
@@ -68,13 +73,14 @@ session_start();
 
     <?php
         if(isset($_POST["submitbtn"])){
-            $docName = $_POST["docName"];
+            $docName = strtolower($_POST["docName"]);
             $docPrice = 0;
             $docId = genNewDocId($con);
+            $vprasanja = $_COOKIE["vprasanja"];
             if(isset($_POST["docPrice"])){
                 $docPrice = $_POST["docPrice"];
             }
-            $query = "insert into dokument (naziv, cena, stevilkaDokumenta) values ('$docName', '$docPrice', '$docId')";
+            $query = "insert into dokument (naziv, cena, stevilkaDokumenta, vprasanja) values ('$docName', '$docPrice', '$docId', '$vprasanja')";
             if(mysqli_query($con, $query) == true){
                 echo "Datoteka uspešno shranjena. Za dostop do nje uporabite sledečo identifikacijsko številko: ";
                 echo "<br>";
