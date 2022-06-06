@@ -2,6 +2,7 @@
 session_start();
     include ("config.php");
     include ("functions.php");
+    $id = $_GET["id"];
 ?>
 
 
@@ -17,7 +18,7 @@ session_start();
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="css/Style.css" />
     <link rel="icon" href="./Slike/logo.jpg">
-    <title>Pametni obrazci | Engine</title>
+    <title>Pametni obrazci</title>
 </head>
 
 <body>
@@ -26,26 +27,33 @@ session_start();
         include ("header.php");
     ?>  
 
-<div style="text-align: center;">
-    <form action="" method="post">
-        <label for="imeDatoteke">Vnesi identifikacisko številko/naziv dokumenta: </label> <br>
-        <input type="text" name="imeDatoteke" id="">
-        <input type="submit" name="isci" value="Išči">
-    </form>
-</div>
-
-<div style="text-align: center;">
+<div style="text-align:center;">
     <?php
-        if(isset($_POST["isci"])){
-            $docId = $_POST["imeDatoteke"];
-            $dokumenti = pridobiDokumente($con, $docId);
+        $document = pridobiDokument($con, $id);
+        $vprasanja = array("Vase ime", "Vas priimek", "Vase leto rojstva", "Vasa emso");
+        //$vprasanja = $document["vprasanja"];
+        if(!empty($document)){
+            echo "Naziv dokumenta: " . $document["naziv"];
+            echo "<br>";
+            echo "Cena: " . $document["cena"] . " $.";
+            echo "<hr>";
+            foreach($vprasanja as $vprasanje){
+                echo '<label for="imeDatoteke">'. $vprasanje . '</label>';
+                echo " ";
+                echo '<input type="text" name="imeDatoteke" id="">';
+                echo "<br>";
+            }
+            echo "<hr>";
+            echo '<button type="submit">Shrani pdf</button>';
+        
         }
     ?>
 </div>
+
     
 
 
-
+<a href="index.php">Nazaj</a>
 <?php
 include ("footer.php");
 ?>
