@@ -56,10 +56,8 @@ session_start();
             echo "<hr>";
             echo '<button type="submit" name="shrani">Shrani pdf</button>';
             echo "</form>";
-            echo '<input type="hidden" name="" id="poljeString" value="'. $poljeString .'">';
-            echo '<input type="hidden" name="" id="besedilo" value="'. $html .'">';
-            echo '<input type="hidden" name="" id="vprasanja" value="'. $vprasanjaRaw .'">';
-            echo '<input type="hidden" name="" id="odgovori" value="'. $odgovori .'">';
+            
+            
         }
 
         if(isset($_POST["shrani"])){
@@ -67,7 +65,11 @@ session_start();
                 $odgovor = $_POST["odgovor".$x];
                 array_push($odgovori, $odgovor);
               }
-            print_r($odgovori);
+              $odgovoriDec = json_encode($odgovori);
+            echo "<input type='hidden'  id='odgovori' value='". $odgovoriDec."'>";
+            echo "<input type='hidden' id='poljeString' value='". $poljeString ."'>";
+            echo "<input type='hidden' id='besedilo' value='". $html ."'>";
+            echo "<input type='hidden' id='vprasanja' value='". $vprasanjaRaw ."'>";
         } 
     ?>
 </div>

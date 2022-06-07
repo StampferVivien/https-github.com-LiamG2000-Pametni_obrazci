@@ -5,14 +5,17 @@ function odpriFile(id){
 }
 
 function test(){
-    console.log("TESt");
+    console.log("test");
     let poljeString = document.getElementById("poljeString").value;
     let besedilo = document.getElementById("besedilo").value;
     let vprasanja = document.getElementById("vprasanja").value;
     let odgovori = document.getElementById("odgovori").value;
+    let vprasanja1 = JSON.parse(vprasanja);
+    let odgovori1 = JSON.parse(odgovori);
+
     console.log(atob(poljeString));
     console.log(atob(besedilo));
-    console.log(odgovori);
-    console.log(vprasanja);
+    console.log(vprasanja1);
+    console.log(odgovori1);
    
 }
