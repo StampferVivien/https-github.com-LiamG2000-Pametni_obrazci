@@ -124,7 +124,7 @@ session_start();
                   
                   <div class="text-right space-x-5 mt-5">
                       <button type="button" @click="showModal = !showModal" class="px-4 py-2 text-sm bg-white rounded-xl border transition-colors duration-150 ease-linear border-gray-200 text-gray-500 focus:outline-none focus:ring-0 font-bold hover:bg-gray-50 focus:bg-indigo-50 focus:text-indigo" onclick="delete_input()">Cancel</button>
-                      <button type="button" class="px-4 py-2 text-sm bg-white rounded-xl border transition-colors duration-150 ease-linear border-gray-200 text-gray-500 focus:outline-none focus:ring-0 font-bold hover:bg-gray-50 focus:bg-indigo-50 focus:text-indigo" onclick="add_id_to_input();vpis_vprasanja()">OK</button>
+                      <button type="button" @click="showModal = !showModal" class="px-4 py-2 text-sm bg-white rounded-xl border transition-colors duration-150 ease-linear border-gray-200 text-gray-500 focus:outline-none focus:ring-0 font-bold hover:bg-gray-50 focus:bg-indigo-50 focus:text-indigo" onclick="add_id_to_input();vpis_vprasanja()">OK</button>
                   </div>
               </div>
           </div>
@@ -132,11 +132,19 @@ session_start();
   
       <div class="mb-10 pb-10 border-b border-gray-200"></div>
   </div>
-  <br><br><br><br>
+  <br><br><br><br><br><br><br><br>
   <input id="myPhpValue" value="" />
   <!------------------------------------------------------------------------------------------------------------------------------------------- -->
   <button type="button" onclick="return_json()">blablabla</button>
-        </div>
+
+  <script type="text/JavaScript">
+    $('#vprasanje_input').keypress(function (e) {                                       
+       if (e.which == 13) {
+            e.preventDefault();
+            //do something   
+            }
+        });
+</script>
         <div class="form-group" id="placljivo">
           <label for="check">Plačljivo</label>
           <input type="checkbox" class="form-control" value="check" name="check" onclick="myFunction(this)">
@@ -144,7 +152,7 @@ session_start();
         
         <?php
             if(checkVerify($con) == true){
-                echo '<button type="submit" class="btn btn-primary" name="submitbtn">Shrani</button>';
+                echo '<div><button type="submit" class="btn btn-primary" name="submitbtn">Shrani</button></div>';
             }else{
                 echo "Za shranjevanje je potrebno potrditi račun. To lahko storite" . ' <a href="potrditevEmail.php">tukaj</a>' ;
             }
