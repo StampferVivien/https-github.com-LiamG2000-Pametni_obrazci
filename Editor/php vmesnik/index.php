@@ -100,8 +100,9 @@ session_start();
                   </li>
                  
                 </ul>
-                <button type="button" onclick="get_editor_content()">html code!</button>
-                <button type="button" onclick="set_editor_content()">vnesi html</button>
+                <button type="button" onclick="get_editor_content()">Shrani tekst</button>
+                <br
+                <button type="button" onclick="set_editor_content()">Naloži tekst</button>
              </div>
         </aside>
         <main class="flex flex-col w-screen">
@@ -135,13 +136,15 @@ session_start();
       <div class="mb-10 pb-10 border-b border-gray-200"></div>
   </div>
   <br><br><br><br><br><br><br><br>
-  <input id="myPhpValue" value="" />
   <!------------------------------------------------------------------------------------------------------------------------------------------- -->
 
         <div class="form-group" id="placljivo">
           <label for="check">Plačljivo</label>
           <input type="checkbox" class="form-control" value="check" name="check" onclick="prikaziCeno(this)">
           <input type="hidden" name="vprasanja" id="vprasanja">
+          <input type="hidden" name="poljeString" id="poljeString">
+          <input type="hidden" name="besedilo" id="besedilo">
+
           <br>
         </div>
         
@@ -187,17 +190,25 @@ session_start();
             $docPrice = 0;
             $docId = genNewDocId($con);
             $vprasanja = $_POST["vprasanja"];
+            $poljeString = $_POST["poljeString"];
+            $coded = base64_encode($poljeString);
+            $html = $_POST["besedilo"];
+            $besedilo = base64_encode($html);
+
+            
             if(isset($_POST["docPrice"])){
                 $docPrice = $_POST["docPrice"];
             }
-            $query = "insert into dokument (naziv, cena, stevilkaDokumenta, vprasanja, tk_uporabnik) values ('$docName', '$docPrice', '$docId', '$vprasanja', '$userID')";
+
+            $query = "insert into dokument (naziv, cena, stevilkaDokumenta, vprasanja, poljeString, besedilo, tk_uporabnik) values ('$docName', '$docPrice', '$docId', '$vprasanja', '$coded', '$besedilo', '$userID')";
+
             if(mysqli_query($con, $query) == true){
                 echo "Datoteka uspešno shranjena. Za dostop do nje uporabite sledečo identifikacijsko številko: ";
                 echo "<br>";
                 echo $docId;
                 echo "<br>";
-                echo $vprasanja;
-
+            }else{
+                echo mysqli_error($con);
             }
         }
 

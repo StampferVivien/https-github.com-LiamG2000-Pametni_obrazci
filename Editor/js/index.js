@@ -6,6 +6,7 @@ var polje_inputov_id = [];
 var polje_inputov_value = [];
 var polje_vprasanj = [];
 var json_file;
+
 tinymce.init({
   selector: '#text_editor',
   init_instance_callback: function(editor) {
@@ -110,7 +111,6 @@ document.addEventListener('dragstart', function (event) {
 });
 
 function vpis_vprasanja(){
-console.log("nekaj");
 var vpranaje = document.getElementById("vprasanje_input").value;
 polje_vprasanj[polje_vprasanj.length] = vpranaje;
 console.log(polje_vprasanj);
@@ -119,6 +119,10 @@ console.log(json_file);
 
 let vprasanja = document.getElementById("vprasanja");
 vprasanja.setAttribute("value", json_file);
+let inputString = document.getElementById("poljeString");
+inputString.setAttribute("value", polje_string);
+let besedilo = document.getElementById("besedilo");
+besedilo.setAttribute("value", content_html);
 
 }
 

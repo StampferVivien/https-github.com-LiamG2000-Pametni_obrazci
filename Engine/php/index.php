@@ -39,6 +39,7 @@ session_start();
         if(isset($_POST["isci"])){
             $docId = $_POST["imeDatoteke"];
             $dokumenti = pridobiDokumente($con, $docId);
+            
         }
     ?>
 </div>
