@@ -114,6 +114,6 @@ var vpranaje = document.getElementById("vprasanje_input").value;
 polje_vprasanj[polje_vprasanj.length] = vpranaje;
 console.log(polje_vprasanj);
 json_file = JSON.stringify(polje_vprasanj);
-localStorage.setItem("File" , json_file);
+console.log(json_file);
 }
 
