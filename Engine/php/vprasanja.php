@@ -18,7 +18,7 @@ session_start();
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="css/Style.css" />
     <link rel="icon" href="./Slike/logo.jpg">
-    <title>Pametni obrazci</title>
+    <title>Pametni obrazci | Engine</title>
 </head>
 
 <body>
@@ -30,7 +30,7 @@ session_start();
 <div style="text-align:center;">
     <?php
         $document = pridobiDokument($con, $id);
-        $vprasanja = array("Vase ime", "Vas priimek", "Vase leto rojstva", "Vasa emso");
+        $vprasanja = json_decode($document["vprasanja"]);
         //$vprasanja = $document["vprasanja"];
         if(!empty($document)){
             echo "Naziv dokumenta: " . $document["naziv"];

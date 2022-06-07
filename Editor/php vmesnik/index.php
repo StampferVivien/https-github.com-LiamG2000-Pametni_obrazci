@@ -2,8 +2,8 @@
 session_start();
     include ("config.php");
     include ("functions.php");
-
     $user_data = check_login($con);
+    $userID = $user_data["id"];
 ?>
 
 
@@ -137,19 +137,11 @@ session_start();
   <br><br><br><br><br><br><br><br>
   <input id="myPhpValue" value="" />
   <!------------------------------------------------------------------------------------------------------------------------------------------- -->
-  <button type="button" onclick="return_json()">blablabla</button>
 
-  <script type="text/JavaScript">
-    $('#vprasanje_input').keypress(function (e) {                                       
-       if (e.which == 13) {
-            e.preventDefault();
-            //do something   
-            }
-        });
-</script>
         <div class="form-group" id="placljivo">
           <label for="check">Plačljivo</label>
           <input type="checkbox" class="form-control" value="check" name="check" onclick="prikaziCeno(this)">
+          <input type="hidden" name="vprasanja" id="vprasanja">
           <br>
         </div>
         
@@ -165,6 +157,13 @@ session_start();
     </form>
 
     <script type="text/JavaScript">
+
+        $('#vprasanje_input').keypress(function (e) {                                       
+               if (e.which == 13) {
+                    e.preventDefault();
+                    //do something   
+                    }
+                });
 
         function prikaziCeno(me) {
             let input = document.createElement("input");
@@ -187,15 +186,18 @@ session_start();
             $docName = strtolower($_POST["docName"]);
             $docPrice = 0;
             $docId = genNewDocId($con);
-            $vprasanja = $_COOKIE["vprasanja"];
+            $vprasanja = $_POST["vprasanja"];
             if(isset($_POST["docPrice"])){
                 $docPrice = $_POST["docPrice"];
             }
-            $query = "insert into dokument (naziv, cena, stevilkaDokumenta, vprasanja) values ('$docName', '$docPrice', '$docId', '$vprasanja')";
+            $query = "insert into dokument (naziv, cena, stevilkaDokumenta, vprasanja, tk_uporabnik) values ('$docName', '$docPrice', '$docId', '$vprasanja', '$userID')";
             if(mysqli_query($con, $query) == true){
                 echo "Datoteka uspešno shranjena. Za dostop do nje uporabite sledečo identifikacijsko številko: ";
                 echo "<br>";
                 echo $docId;
+                echo "<br>";
+                echo $vprasanja;
+
             }
         }
 
