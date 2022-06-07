@@ -10,11 +10,13 @@ function test(){
     let besedilo = document.getElementById("besedilo").value;
     let vprasanja = document.getElementById("vprasanja").value;
     let odgovori = document.getElementById("odgovori").value;
+
+    let besediloDecoded = atob(besedilo);
     let vprasanja1 = JSON.parse(vprasanja);
     let odgovori1 = JSON.parse(odgovori);
 
     console.log(atob(poljeString));
-    console.log(atob(besedilo));
+    console.log(besediloDecoded);
     console.log(vprasanja1);
     console.log(odgovori1);
    

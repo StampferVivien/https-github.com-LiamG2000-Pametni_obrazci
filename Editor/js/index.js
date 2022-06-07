@@ -15,14 +15,12 @@ tinymce.init({
       document.getElementById("gumb123").click();
     });
   }
-    
 });
 
 var content_html = null;
 function get_editor_content() {
   console.debug(tinyMCE.activeEditor.getContent());
   content_html = tinyMCE.get('text_editor').getContent();
-
 }
 
 function set_editor_content(){
@@ -121,6 +119,8 @@ function vpis_vprasanja(){
   let inputString = document.getElementById("poljeString");
   inputString.setAttribute("value", polje_string);
   let besedilo = document.getElementById("besedilo");
-  besedilo.setAttribute("value", content_html_edit9);
+  let html = tinyMCE.get('text_editor').getContent();
+  console.log(html);
+  besedilo.setAttribute("value", html);
   
   }
