@@ -121,13 +121,6 @@ function vpis_vprasanja(){
   let inputString = document.getElementById("poljeString");
   inputString.setAttribute("value", polje_string);
   let besedilo = document.getElementById("besedilo");
-<<<<<<< HEAD
-  besedilo.setAttribute("value", content_html);
-  
-  }
-
-=======
   besedilo.setAttribute("value", content_html_edit9);
   
   }
->>>>>>> 7d5439aef3a579b297e742454b6b57ddfd484e04
