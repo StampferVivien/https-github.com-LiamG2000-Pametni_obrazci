@@ -36,6 +36,8 @@ session_start();
         <div class="form-group">
           <label for="exampleInputEmail1">Naziv dokumenta</label>
           <input type="text" class="form-control" name="docName" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Vnesi naziv dokumenta">
+
+          <hr>
             <!---------------------------------------------------------------------------------------------------------------------------------------------------------->
         <div class="flex">
         <aside class="h-40 sticky top-0">
@@ -133,31 +135,29 @@ session_start();
       <div class="mb-10 pb-10 border-b border-gray-200"></div>
   </div>
   <br><br><br><br>
-  <input id="myPhpValue" value="" />
+  
   <!------------------------------------------------------------------------------------------------------------------------------------------- -->
-  <button type="button" onclick="return_json()">blablabla</button>
-        </div>
         <div class="form-group" id="placljivo">
           <label for="check">Plačljivo</label>
-          <input type="checkbox" class="form-control" value="check" name="check" onclick="myFunction(this)">
+          <input type="checkbox" class="form-control" value="check" name="check" onclick="prikaziCeno(this)">
+          <br>
         </div>
         
         <?php
             if(checkVerify($con) == true){
                 echo '<button type="submit" class="btn btn-primary" name="submitbtn">Shrani</button>';
+                echo "<br>";
             }else{
                 echo "Za shranjevanje je potrebno potrditi račun. To lahko storite" . ' <a href="potrditevEmail.php">tukaj</a>' ;
+                echo "<br>";
             }
+
         ?>
     </form>
 
     <script type="text/JavaScript">
 
-        function nekaj(){
-            return 5
-        }
-
-        function myFunction(me) {
+        function prikaziCeno(me) {
             let input = document.createElement("input");
             input.setAttribute("type", "number");
             input.setAttribute("placeholder", "Vnesi ceno");
@@ -171,6 +171,7 @@ session_start();
             }
         }
     </script>
+
 
     <?php
         if(isset($_POST["submitbtn"])){
@@ -187,8 +188,10 @@ session_start();
                 echo "<br>";
                 echo $docId;
             }
-            
         }
+
+        
+
     ?>
     
 
