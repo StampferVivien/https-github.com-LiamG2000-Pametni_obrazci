@@ -30,6 +30,8 @@ session_start();
 <div style="text-align:center;">
     <?php
 
+        $stVprasanj = 0;
+        $odgovori = [];
         $document = pridobiDokument($con, $id);
         $vprasanjaRaw = $document["vprasanja"];
         $vprasanja = json_decode($document["vprasanja"]);
@@ -45,9 +47,10 @@ session_start();
             echo "<hr>";
             echo '<form action="" method="post">';
             foreach($vprasanja as $vprasanje){
+                $stVprasanj += 1;
                 echo '<label for="odgovor">'. $vprasanje . '</label>';
                 echo " ";
-                echo '<input type="text" name="odgovor" id="">';
+                echo '<input type="text" name="odgovor'. $stVprasanj .'" id="">';
                 echo "<br>";
             }
             echo "<hr>";
@@ -56,13 +59,15 @@ session_start();
             echo '<input type="hidden" name="" id="poljeString" value="'. $poljeString .'">';
             echo '<input type="hidden" name="" id="besedilo" value="'. $html .'">';
             echo '<input type="hidden" name="" id="vprasanja" value="'. $vprasanjaRaw .'">';
-
-
-
+            echo '<input type="hidden" name="" id="odgovori" value="'. $odgovori .'">';
         }
 
         if(isset($_POST["shrani"])){
-            echo "delam"; 
+            for ($x = 1; $x <= $stVprasanj; $x++) {
+                $odgovor = $_POST["odgovor".$x];
+                array_push($odgovori, $odgovor);
+              }
+            print_r($odgovori);
         } 
     ?>
 </div>
