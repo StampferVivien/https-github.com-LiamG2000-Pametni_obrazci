@@ -1,4 +1,4 @@
-var inputValue = "123";
+var inputValue = "";
 const replaced = "";  
 var i = 0;
 var polje_string = ""; 

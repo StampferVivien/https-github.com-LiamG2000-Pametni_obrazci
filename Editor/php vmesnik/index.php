@@ -101,7 +101,7 @@ session_start();
                  
                 </ul>
                 <button type="button" onclick="get_editor_content()">Shrani tekst</button>
-                <br
+                <br>
                 <button type="button" onclick="set_editor_content()">Naloži tekst</button>
              </div>
         </aside>
