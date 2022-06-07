@@ -122,7 +122,7 @@ vprasanja.setAttribute("value", json_file);
 let inputString = document.getElementById("poljeString");
 inputString.setAttribute("value", polje_string);
 let besedilo = document.getElementById("besedilo");
-besedilo.setAttribute("value", content_html);
+besedilo.setAttribute("value", content_html_edit9);
 
 }
 
