@@ -18,7 +18,10 @@ session_start();
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="../css/index.css"></script>
     <link href="../dist/output.css" rel="stylesheet">
-    <link rel="icon" href="./Slike/logo.jpg">
+    
+    <link rel = "icon" href = 
+"../slike/logo3.png" 
+        type = "image/x-icon">
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.tiny.cloud/1/lf6b19popibawemzk9qpt3cf2eqexglq9mnzakqkvi9kh17x/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <title>Pametni obrazci</title>
