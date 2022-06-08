@@ -27,6 +27,7 @@ session_start();
     <?php
         include ("header.php");
         include ("navBar.php");
+        getUserDoc($con, $user_data["id"]);
     ?>  
 
 

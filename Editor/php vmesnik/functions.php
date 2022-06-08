@@ -152,6 +152,53 @@ function genNewDocId($con){
 	}
 }
 
+function getUserDoc($con, $userId){
+	$query = "select * from dokument where tk_uporabnik='$userId'";
+	$result = mysqli_query($con, $query);
+	
+
+	echo '<form action="" method="post">';
+	echo "<table class='table table-hover'>";
+	echo 
+	'<thead class="thead-dark">
+		<tr>
+			<th scope="col">Naziv</th>
+			<th scope="col">Stevilka dokumenta</th>
+			<th scope="col">Cena</th>
+			<th scope="col">Briši</th>
+		</tr>
+	</thead>'; 
+
+	echo '<tbody>';
+
+	while($row = mysqli_fetch_array($result)){   
+	 
+	echo "<tr>";
+		echo "<td>";
+			echo $row["naziv"];
+		echo "</td>";
+		echo "<td>";
+			echo $row["stevilkaDokumenta"];
+		echo "</td>";
+		echo "<td>";
+			echo $row["cena"] . " $";
+		echo "</td>";
+		echo "<td>";
+			echo "<button name='delBtn' value='".$row["id"]."'>Briši</button>";
+		echo "</td>";
+	echo "</tr>";
+	}
+	echo '</tbody>';
+	echo "</table>"; 
+	echo "</form>";
+}
+
+if(isset($_POST["delBtn"])){
+	$documentId = $_POST["delBtn"];
+	$query = "delete from dokument where id='$documentId'";
+    $results = mysqli_query($con, $query);
+    header("Location: datoteke.php");
+}
 
 
 

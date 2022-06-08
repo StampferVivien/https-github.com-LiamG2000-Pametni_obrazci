@@ -2,8 +2,8 @@
 session_start();
     include ("config.php");
     include ("functions.php");
-
     $user_data = check_login($con);
+    $userID = $user_data["id"];
 ?>
 
 
@@ -36,6 +36,8 @@ session_start();
         <div class="form-group">
           <label for="exampleInputEmail1">Naziv dokumenta</label>
           <input type="text" class="form-control" name="docName" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Vnesi naziv dokumenta">
+
+          <hr>
             <!---------------------------------------------------------------------------------------------------------------------------------------------------------->
         <div class="flex">
         <aside class="h-40 sticky top-0">
@@ -98,8 +100,9 @@ session_start();
                   </li>
                  
                 </ul>
-                <button type="button" onclick="get_editor_content()">html code!</button>
-                <button type="button" onclick="set_editor_content()">vnesi html</button>
+                <button type="button" onclick="get_editor_content()">Shrani tekst</button>
+                <br>
+                <button type="button" onclick="set_editor_content()">Naloži tekst</button>
              </div>
         </aside>
         <main class="flex flex-col w-screen">
@@ -113,9 +116,9 @@ session_start();
           <button type="button" @click="showModal = !showModal" class="invisible" id="gumb123">Open Modal</button>
   
           
-          <div x-show="showModal" class="fixed text-gray-500 flex items-center justify-center overflow-auto z-50 bg-black bg-opacity-40 left-0 right-0 top-0 bottom-0" x-transition:enter="transition ease duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+          <div x-show="showModal" class="fixed text-gray-500 flex items-center justify-center overflow-auto z-50 bg-indigo-600 bg-opacity-5 left-0 right-0 top-0 bottom-0" x-transition:enter="transition ease duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
               
-              <div x-show="showModal" class="bg-white rounded-xl shadow-2xl p-6 sm:w-10/12 mx-10" @click.away="showModal = false;delete_input()" x-transition:enter="transition ease duration-100 transform" x-transition:enter-start="opacity-0 scale-90 translate-y-1" x-transition:enter-end="opacity-100 scale-100 translate-y-0" x-transition:leave="transition ease duration-100 transform" x-transition:leave-start="opacity-100 scale-100 translate-y-0" x-transition:leave-end="opacity-0 scale-90 translate-y-1">
+              <div x-show="showModal" class="bg-white rounded-xl shadow-2xl p-6 sm:w-3/12 mx-10" @click.away="showModal = false;delete_input()" x-transition:enter="transition ease duration-100 transform" x-transition:enter-start="opacity-0 scale-70 translate-y-1" x-transition:enter-end="opacity-80 scale-100 translate-y-0" x-transition:leave="transition ease duration-100 transform" x-transition:leave-start="opacity-70 scale-100 translate-y-0" x-transition:leave-end="opacity-0 scale-90 translate-y-1">
                  
                   <span class="font-bold block text-2xl mb-3">Vpišite vprašanje</span>
                   
@@ -124,7 +127,7 @@ session_start();
                   
                   <div class="text-right space-x-5 mt-5">
                       <button type="button" @click="showModal = !showModal" class="px-4 py-2 text-sm bg-white rounded-xl border transition-colors duration-150 ease-linear border-gray-200 text-gray-500 focus:outline-none focus:ring-0 font-bold hover:bg-gray-50 focus:bg-indigo-50 focus:text-indigo" onclick="delete_input()">Cancel</button>
-                      <button type="button" class="px-4 py-2 text-sm bg-white rounded-xl border transition-colors duration-150 ease-linear border-gray-200 text-gray-500 focus:outline-none focus:ring-0 font-bold hover:bg-gray-50 focus:bg-indigo-50 focus:text-indigo" onclick="add_id_to_input();vpis_vprasanja()">OK</button>
+                      <button type="button" @click="showModal = !showModal" class="px-4 py-2 text-sm bg-white rounded-xl border transition-colors duration-150 ease-linear border-gray-200 text-gray-500 focus:outline-none focus:ring-0 font-bold hover:bg-gray-50 focus:bg-indigo-50 focus:text-indigo" onclick="add_id_to_input();vpis_vprasanja()">OK</button>
                   </div>
               </div>
           </div>
@@ -132,32 +135,40 @@ session_start();
   
       <div class="mb-10 pb-10 border-b border-gray-200"></div>
   </div>
-  <br><br><br><br>
-  <input id="myPhpValue" value="" />
+  <br><br><br><br><br><br><br><br>
   <!------------------------------------------------------------------------------------------------------------------------------------------- -->
-  <button type="button" onclick="return_json()">blablabla</button>
-        </div>
+
         <div class="form-group" id="placljivo">
           <label for="check">Plačljivo</label>
-          <input type="checkbox" class="form-control" value="check" name="check" onclick="myFunction(this)">
+          <input type="checkbox" class="form-control" value="check" name="check" onclick="prikaziCeno(this)">
+          <input type="hidden" name="vprasanja" id="vprasanja">
+          <input type="hidden" name="poljeString" id="poljeString">
+          <input type="hidden" name="besedilo" id="besedilo">
+
+          <br>
         </div>
         
         <?php
             if(checkVerify($con) == true){
-                echo '<button type="submit" class="btn btn-primary" name="submitbtn">Shrani</button>';
+                echo '<div><button type="submit" class="btn btn-primary" name="submitbtn">Shrani</button></div>';
             }else{
                 echo "Za shranjevanje je potrebno potrditi račun. To lahko storite" . ' <a href="potrditevEmail.php">tukaj</a>' ;
+                echo "<br>";
             }
+
         ?>
     </form>
 
     <script type="text/JavaScript">
 
-        function nekaj(){
-            return 5
-        }
+        $('#vprasanje_input').keypress(function (e) {                                       
+               if (e.which == 13) {
+                    e.preventDefault();
+                    //do something   
+                    }
+                });
 
-        function myFunction(me) {
+        function prikaziCeno(me) {
             let input = document.createElement("input");
             input.setAttribute("type", "number");
             input.setAttribute("placeholder", "Vnesi ceno");
@@ -172,23 +183,37 @@ session_start();
         }
     </script>
 
+
     <?php
         if(isset($_POST["submitbtn"])){
             $docName = strtolower($_POST["docName"]);
             $docPrice = 0;
             $docId = genNewDocId($con);
-            $vprasanja = $_COOKIE["vprasanja"];
+            $vprasanja = $_POST["vprasanja"];
+            $poljeString = $_POST["poljeString"];
+            $coded = base64_encode($poljeString);
+            $html = $_POST["besedilo"];
+            $besedilo = base64_encode($html);
+
+            
             if(isset($_POST["docPrice"])){
                 $docPrice = $_POST["docPrice"];
             }
-            $query = "insert into dokument (naziv, cena, stevilkaDokumenta, vprasanja) values ('$docName', '$docPrice', '$docId', '$vprasanja')";
+
+            $query = "insert into dokument (naziv, cena, stevilkaDokumenta, vprasanja, poljeString, besedilo, tk_uporabnik) values ('$docName', '$docPrice', '$docId', '$vprasanja', '$coded', '$besedilo', '$userID')";
+
             if(mysqli_query($con, $query) == true){
                 echo "Datoteka uspešno shranjena. Za dostop do nje uporabite sledečo identifikacijsko številko: ";
                 echo "<br>";
                 echo $docId;
+                echo "<br>";
+            }else{
+                echo mysqli_error($con);
             }
-            
         }
+
+        
+
     ?>
     
 
