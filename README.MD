@@ -1,9 +1,8 @@
 
 
-# Pametni obrazci
-<p align="center">
+# Pametni obrazci {align=center}
+
 ![Test Image 1](https://github.com/LiamG2000/Pametni_obrazci/blob/master/slike/logo1.png)
-</p>
 
 ## O naših strani 
 
