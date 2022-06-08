@@ -1,6 +1,6 @@
 # Pametni obrazci
 <p align="center">
-  <img src="../slike/logo1.png" width="350" title="hover text">
+  <img src="Pametni_obrazci\slike\logo1.png" width="400" height="200" >
 </p>
 ## O naših strani 
 
