@@ -181,7 +181,7 @@ function getUserDoc($con, $userId){
 			echo $row["stevilkaDokumenta"];
 		echo "</td>";
 		echo "<td>";
-			echo $row["cena"];
+			echo $row["cena"] . " $";
 		echo "</td>";
 		echo "<td>";
 			echo "<button name='delBtn' value='".$row["id"]."'>Briši</button>";
