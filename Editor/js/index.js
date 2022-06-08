@@ -13,8 +13,10 @@ tinymce.init({
   init_instance_callback: function(editor) {
     editor.on('drop', function(e) {
       document.getElementById("gumb123").click();
+      console.log(e.type);
     });
   }
+  
 });
 
 var content_html = null;
@@ -100,6 +102,7 @@ var shouldHandleKeyDown = true;
 function dragStart(event) {
   event.dataTransfer.setData("text/html", event.currentTarget.id);
   inputValue = event.currentTarget.id;
+  
 }
 
 var text_editor = document.getElementById('text_editor');
