@@ -1,119 +1,96 @@
 <?php 
 ini_set( 'display_errors', 1 );
 error_reporting( E_ALL );
-
 session_start();
+include ("config.php");
+include ("functions.php");
 
-	include ("config.php");
-	include ("functions.php");
+//Nastavljanej vrednosti
+$Erruser_name = $Erremail = $Erremailzaseden = $Errpassword = $ErrRandom = "";
+$user_name = $email = $password = "";
 
-  
-
-	if($_SERVER['REQUEST_METHOD'] == "POST")
-	{
-		//something was posted
-    $user_name = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-  
-    
-    $hashedPassword = password_hash($password, PASSWORD_BCRYPT, array('cost' => 9));
-    
-
-    if(preveriMail($con, $email) == true){
-
-      echo '<div class="alert alert-primary" role="alert">
-      Email je ze zavzet
-    </div>';
-
-
-    
-		if(!empty($user_name) && !empty($hashedPassword) && !is_numeric($user_name) && !empty($email))
-		{
-      $verificationCode = substr(number_format(time()* rand(),0,"",""), 0,6);
-
-			$user_id = random_num(20);
-      $query = "insert into uporabnik (uporabnisko_ime, email, geslo,user_id,verificationCode) values ('$user_name','$email','$hashedPassword', '$user_id','$verificationCode' )";
-      
-    
-      mysqli_query($con, $query);
-      
-  
-
-			header("Location: login.php");
-       
-      posliMail($email, $verificationCode);
-      die;
-      
-		}else
-		{
-			echo "Please enter some valid information!";
-		}
+//Pritisk gumba "Potrdi"
+if($_SERVER['REQUEST_METHOD'] == "POST"){
+  //Preverjanje uporabniskega imena
+  if(empty($_POST["username"])){
+    $Erruser_name = "Uporabniško ime je obvezno";
+  }else{
+    $user_name = $_POST["username"];
   }
-  
+  //preverjanje emaila
+  if(empty($_POST["email"])){
+    $Erremail = "Email je obvezen";
+  }else{
+    if(preveriMail($con, $_POST["email"]) == true){
+      $email = $_POST["email"];
+    }else{
+      $Erremail = "Email je že v uporabi";
+    }
+  }
+  //preverjanje gesla
+  if(empty($_POST["password"])){
+    $Errpassword  = "Geslo je obvezno";
+  }else{
+    $password = password_hash($_POST["password"], PASSWORD_BCRYPT, array('cost' => 9));;
+  }
+  //Ce je vse vneseno se zacne vnos v bazo
+  if(!empty($user_name) && !empty($password) && !empty($email)){
+    $verificationCode = rand(10000, 99999);
+    $user_id = novUserId($con);
+    $stmt = $con -> prepare("insert into uporabnik (uporabnisko_ime, email, geslo, user_id, verificationCode) values (?,?,?,?,?)");
+    $stmt -> bind_param("sssii", $user_name, $email, $password, $user_id, $verificationCode);
+    if($stmt -> execute() == true){
+      header("Location: login.php");
+      if(posliMail($con, $verificationCode) == false){
+        $ErrRandom = "Napaka pri pošiljanju mail-a prosim kontaktirajte administratorja";
+      }
+      die;
+    }else{
+      $ErrRandom = "Prislo je do napake, prosim poskusite ponovno!";
+    }
+  }
 }
-
-function posliMail($email,$veritificationcode ){
-
-  ini_set("SMTP","ssl:smtp.office365.com" );
-  ini_set("smtp_port","587");
-  ini_set('sendmail_from', 'pametni.obrazci@outlook.com');          
-  $to = $email;
-  $subject = "Test mail";
-  $message = "Hello! This is a simple email message. ".$veritificationcode;
-  $from = "pametni.obrazci@outlook.com";
-  $headers = "From:" . $from;
-  $retval = mail($to,$subject,$message,$headers);
-     if( $retval == true )  
-     {
-        echo "Message sent successfully...";
-     }
-     else
-     {
-        echo "Message could not be sent...";
-     }
-}
-
-
-
 ?>
-
 
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Signup</title>
+  <head>
+    <title>Registracija</title>
+    <link rel="shortcut icon" type="image/jpg" href="https://github.com/LiamG2000/Pametni_obrazci/blob/master/slike/logo3.png"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
-<body>
-<?php
-    include ("header.php");
-?>
-
-
-                <div class="modal-body">
-                    <form name="myform" class="form-detail" method="POST" id="dodajUporabnikaForm" enctype="multipart/form-data">
-                        <h2>Registracija</h2>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Uporabniško Ime:</label>
-                            <input type="text" name="username" id="name" class="form-control" placeholder="Uporabniško ime">
-                          </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Email:</label>
-                            <input type="text" name="email" id="email" class="form-control" placeholder="Vaš eMail" pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
-                          </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Geslo:</label>
-                            <input type="password" name="password" id="geslo" class="form-control" placeholder="Geslo">
-                          </div>
-                        <div class="form-group">
-                            <button type="submit" name="register" class="btn btn-primary" value="Registriraj Me">Potrdi</button>
-                        </div>
-                        <a href="login.php">Prijava</a><br><br>
-                    </form>
-                </div>
-                <?php include ("footer.php")?>
-                </body>
+    <style>
+      .error {color: #FF0000;}
+    </style>
+  </head>
+  <body>
+    <?php include ("header.php"); ?>
+    <div class="modal-body">
+      <form name="myform" class="form-detail" method="POST" id="dodajUporabnikaForm" enctype="multipart/form-data">
+        <h2>Registracija</h2>
+        <div class="form-group">
+          <label for="username">Uporabniško Ime:</label>
+          <span class="error">* <?php echo $Erruser_name;?></span>
+          <input type="text" name="username" id="name" class="form-control" placeholder="Uporabniško ime">
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <span class="error">* <?php echo $Erremail;?></span>
+          <input type="text" name="email" id="email" class="form-control" placeholder="Vaš eMail" pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
+        </div>
+        <div class="form-group">
+          <label for="password">Geslo:</label>
+          <span class="error">* <?php echo $Errpassword;?></span>
+          <input type="password" name="password" id="geslo" class="form-control" placeholder="Geslo">
+        </div>
+        <div class="form-group">
+          <button type="submit" name="register" class="btn btn-primary" value="Registriraj Me">Potrdi</button>
+          <span class="error"><?php echo $ErrRandom;?></span>
+        </div>
+      </form>
+      <a href="login.php">Prijava</a><br><br>
+    </div>
+    <?php include ("footer.php")?>
+  </body>
 </html>

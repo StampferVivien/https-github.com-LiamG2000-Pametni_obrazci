@@ -1,5 +1,58 @@
 <?php
 
+//<<<<< KODA UPORABLJENA PRI REGISTRACIJA.PHP >>>>>
+
+//Preveri ali je mail ki ga uporabnik vnese že v uporabi
+function preveriMail($con, $mail){
+	$query = "select * from uporabnik where email='$mail'";
+	$result = mysqli_query($con, $query);
+
+	if($result && mysqli_num_rows($result) == 0){
+		return true;
+	}
+}
+
+//Generira nov user_id ter pregleda, da identicen ze ne obstaja
+function novUserId($con){
+	$userId = rand(10000, 99999);
+	$query = "select * from uporabnik where user_id='$userId'";
+	$result = mysqli_query($con, $query);
+
+	if(mysqli_num_rows($result) >= 1){
+		novUserId();
+	}else{
+		return $userId;
+	}
+}
+
+//Poslje mail s narejeno verifikacijsko kodo
+function posliMail($email,$veritificationcode ){
+	ini_set("SMTP","ssl:smtp.office365.com" );
+	ini_set("smtp_port","587");
+	ini_set('sendmail_from', 'pametni.obrazci@outlook.com');
+
+	$to = $email;
+	$subject = "Test mail";
+	$message = "Hello! This is a simple email message. ".$veritificationcode;
+	$from = "pametni.obrazci@outlook.com";
+	$headers = "From:" . $from;
+	$retval = mail($to,$subject,$message,$headers);
+
+	if( $retval == true ){
+	  	return true;
+	}else{
+		return false;
+	}
+}
+
+//<<<<< KODA UPORABLJENA PRI REGISTRACIJA.PHP >>>>> 
+
+//<<<<< KODA UPORABLJENA PRI LOGIN.PHP >>>>>
+
+//<<<<< KODA UPORABLJENA PRI LOGIN.PHP >>>>>
+
+
+
 function check_login($con)
 {
 	if(isset($_SESSION['user_id']))
@@ -67,24 +120,6 @@ function checkVerify($con){
 	die;
 }
 
-function random_num($length)
-{
-	$text = "";
-	if($length < 5)
-	{
-		$length = 5;
-	}
-
-	$len = rand(4,$length);
-
-	for ($i=0; $i < $len; $i++) { 
-		
-
-		$text .= rand(0,9);
-	}
-	return $text;
-}
-
 function pridobiUporabnika($con, $id){
 
     $query = "select * from uporabnik where id='$id'";
@@ -99,14 +134,6 @@ function pridobiUporabnika($con, $id){
 	
 }
 
-function preveriMail($con, $mail){
-	$query = "select * from uporabnik where email='$mail'";
-	$result = mysqli_query($con, $query);
-
-	if($result && mysqli_num_rows($result) == 0){
-		return true;
-	}
-}
 
 
 
@@ -172,7 +199,6 @@ function getUserDoc($con, $userId){
 	echo '<tbody>';
 
 	while($row = mysqli_fetch_array($result)){   
-	 
 	echo "<tr>";
 		echo "<td>";
 			echo $row["naziv"];
@@ -200,5 +226,4 @@ if(isset($_POST["delBtn"])){
     header("Location: datoteke.php");
 }
 
-
-
+  

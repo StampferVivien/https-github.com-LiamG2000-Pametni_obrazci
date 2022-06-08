@@ -25,7 +25,7 @@ session_start();
     <title>Pametni obrazci | Engine</title>
 </head>
 
-<body>
+<body onload="test1()">
    
     <?php
         include ("header.php");
@@ -62,10 +62,7 @@ session_start();
             }
             echo "<hr>";
             echo '<button type="submit" name="shrani" id="shrani_pdf">Shrani pdf</button>';
-            echo '<button type="button" onclick="klikni_gumb();test();demoFromHTML()">Shrani pdff</button>';
             echo "</form>";
-            
-            
         }
 
         if(isset($_POST["shrani"])){
@@ -78,43 +75,15 @@ session_start();
             echo "<input type='hidden' id='poljeString' value='". $poljeString ."'>";
             echo "<input type='hidden' id='besedilo' value='". $html ."'>";
             echo "<input type='hidden' id='vprasanja' value='". $vprasanjaRaw ."'>";
-            echo "<script type='text/javascript'>test();demoFromHTML();</script>";
         } 
     ?>
 </div>
 
+<a href="index.php" id="backBtn">Nazaj</a>
 
-<a href="index.php">Nazaj</a>
-<p onclick="test()">Test</p>
-<p onclick="demoFromHTML()">Pdf</p>
 <?php
 include ("footer.php");
 ?>
-<script>
-        function klikni_gumb(){
-        document.getElementById("shrani_pdf").click();
-        }
-
-        function demoFromHTML() {
-
-            var element = document.getElementById('div_pdf');
-            var clonedElement = element.cloneNode(true);
-            $(clonedElement).css("display", "block");
-
-           
-            var opt = {
-                margin:       1,
-                filename:     'myfile.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 },
-                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-            };
-
-
-            html2pdf().set(opt).from(clonedElement).save()
-        }
-    </script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js " integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0 " crossorigin="anonymous "></script>
     <script type="text/javascript" src="functions.js"></script>
 
