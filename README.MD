@@ -1,7 +1,9 @@
 # Pametni obrazci
+
 <p align="center">
   <img src="Pametni_obrazci\slike\logo1.png" width="400" height="200" >
 </p>
+
 ## O naših strani 
 
 Stran omogoča kreacijo obrazca in reševanje obrazca tako kot tudi pregled obrazcev, ki jih je ustvaril določen uporabnik.
