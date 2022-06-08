@@ -1,9 +1,5 @@
 # Pametni obrazci
 
-<p align="center">
-  <img src="Pametni_obrazci\slike\logo1.png" width="400" height="200" >
-</p>
-
 ![Test Image 1](https://github.com/LiamG2000/Pametni_obrazci/blob/master/slike/logo1.png)
 
 ## O naših strani 
