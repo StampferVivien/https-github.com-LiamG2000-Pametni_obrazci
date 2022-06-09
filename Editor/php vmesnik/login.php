@@ -2,46 +2,13 @@
 session_start();
 include ("config.php");
 include ("functions.php");
-
-if($_SERVER['REQUEST_METHOD'] == "POST"){
-
-	/*
-	//something was posted
-	$email = $_POST['email'];
-	$password = $_POST['password'];
-	if(!empty($email) && !empty($password) && !is_numeric($email)){
-
-		//read from database
-		$query = "select * from uporabnik where email = '$email' limit 1";
-		$result = mysqli_query($con, $query);
-		if($result){
-
-			if($result && mysqli_num_rows($result) > 0){
-
-				$user_data = mysqli_fetch_assoc($result);
-				if(password_verify($password, $user_data['geslo'])){
-					$_SESSION['user_id'] = $user_data['user_id'];
-					header("Location: index.php");
-					die;
-				}
-			}
-		}
-		echo "wrong username or password!";
-	}else
-	{
-		echo "wrong username or password!";
-	}
-
-	*/
-}
-
 ?>
 
 <!DOCTYPE html>
 <html>
 	<head>
 	    <title>Prijava</title>
-	    <link rel="shortcut icon" type="image/jpg" href="https://github.com/LiamG2000/Pametni_obrazci/blob/master/slike/logo3.png"/>
+	    <link rel="icon" type="image/png" href="https://github.com/LiamG2000/Pametni_obrazci/blob/master/slike/logo3.png"/>
 	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -56,14 +23,17 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 		        <h2>Prijava</h2>
 		        <div class="form-group">
 		            <label for="exampleInputEmail1">Email:</label>
+					<span class="error">* <?php echo $Erremail;?></span>
 		            <input type="text" name="email" id="email" class="form-control" placeholder="Vaš eMail" pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
 		        </div>
 		        <div class="form-group">
 		            <label for="exampleInputEmail1">Geslo:</label>
+					<span class="error">* <?php echo $Errpassword;?></span>
 		            <input type="password" name="password" id="geslo" class="form-control" placeholder="Geslo">
 		        </div>
 		        <div class="form-group">
-		            <button type="submit" name="register" class="btn btn-primary" value="Registriraj Me">Potrdi</button>
+		            <button type="submit" name="register" class="btn btn-primary" value="Registriraj Me">Prijava</button>
+					<span class="error"><?php echo $Errrandom;?></span>
 		        </div>
 		        <a href="registracija.php">Registracija</a><br><br>
 		    </form>

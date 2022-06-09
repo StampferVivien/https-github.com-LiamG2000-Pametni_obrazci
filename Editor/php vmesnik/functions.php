@@ -2,6 +2,52 @@
 
 //<<<<< KODA UPORABLJENA PRI REGISTRACIJA.PHP >>>>>
 
+//Nastavljanej vrednosti
+$Erruser_name = $Erremail = $Erremailzaseden = $Errpassword = $ErrRandom = "";
+$user_name = $email = $password = "";
+
+//Pritisk gumba "Potrdi"
+if($_SERVER['REQUEST_METHOD'] == "POST"){
+  //Preverjanje uporabniskega imena
+  if(empty($_POST["username"])){
+    $Erruser_name = "Uporabniško ime je obvezno";
+  }else{
+    $user_name = $_POST["username"];
+  }
+  //preverjanje emaila
+  if(empty($_POST["email"])){
+    $Erremail = "Email je obvezen";
+  }else{
+    if(preveriMail($con, $_POST["email"]) == true){
+      $email = $_POST["email"];
+    }else{
+      $Erremail = "Email je že v uporabi";
+    }
+  }
+  //preverjanje gesla
+  if(empty($_POST["password"])){
+    $Errpassword  = "Geslo je obvezno";
+  }else{
+    $password = password_hash($_POST["password"], PASSWORD_BCRYPT, array('cost' => 9));;
+  }
+  //Ce je vse vneseno se zacne vnos v bazo
+  if(!empty($user_name) && !empty($password) && !empty($email)){
+    $verificationCode = rand(10000, 99999);
+    $user_id = novUserId($con);
+    $stmt = $con -> prepare("insert into uporabnik (uporabnisko_ime, email, geslo, user_id, verificationCode) values (?,?,?,?,?)");
+    $stmt -> bind_param("sssii", $user_name, $email, $password, $user_id, $verificationCode);
+    if($stmt -> execute() == true){
+      header("Location: login.php");
+      if(posliMail($con, $verificationCode) == false){
+        $ErrRandom = "Napaka pri pošiljanju mail-a prosim kontaktirajte administratorja";
+      }
+      die;
+    }else{
+      $ErrRandom = "Prislo je do napake, prosim poskusite ponovno!";
+    }
+  }
+}
+
 //Preveri ali je mail ki ga uporabnik vnese že v uporabi
 function preveriMail($con, $mail){
 	$query = "select * from uporabnik where email='$mail'";
@@ -47,23 +93,69 @@ function posliMail($email,$veritificationcode ){
 
 //<<<<< KODA UPORABLJENA PRI REGISTRACIJA.PHP >>>>> 
 
-//<<<<< KODA UPORABLJENA PRI LOGIN.PHP >>>>>
+
+
+
 
 //<<<<< KODA UPORABLJENA PRI LOGIN.PHP >>>>>
 
+//Nastavitev spremenljivk
+$Erremail = $Errpassword = $Errrandom = "";
+$email = $password = "";
+
+//Pritisk na gumb "Prijava"
+if($_SERVER['REQUEST_METHOD'] == "POST"){
+	
+	//Preveri ce je vnesen email
+	if(empty($_POST["email"])){
+		$Erremail = "Email je obvezen";
+	}else{
+		$email = $_POST["email"];
+	}
+
+	//Preveri ce je vneseno geslo
+	if(empty($_POST["password"])){
+		$Errpassword = "Geslo je obvezno";
+	}else{
+		$password = $_POST["password"];
+	}
+
+	//Preveri in pregleda ce se email ter geslo ujema s tem kaj je v bazi
+	if(!empty($email) && !empty($password)){
+		$query = "select * from uporabnik where email='$email'";
+		$result = mysqli_query($con, $query);
+		if(mysqli_num_rows($result) > 0){
+			$user_data = mysqli_fetch_assoc($result);
+			if(password_verify($password, $user_data["geslo"])){
+				$_SESSION["user_id"] = $user_data["user_id"];
+				header("Location: index.php");
+				die;
+			}else{
+				$Errrandom = "Email ali geslo se ne ujema";
+			}
+		}else{
+			$Errrandom = "Email ali geslo se ne ujema";;
+		}
+	}
+}
+
+//<<<<< KODA UPORABLJENA PRI LOGIN.PHP >>>>>
 
 
-function check_login($con)
-{
-	if(isset($_SESSION['user_id']))
-	{
 
+
+
+//<<<<< KODA UPORABLJENA PRI NAVBAR.PHP >>>>>
+
+//Preveri ce je uporabink prijavljen, drugace ga vrne na stran za pri prijavo
+function check_login($con){
+
+	if(isset($_SESSION['user_id'])){
 		$id = $_SESSION['user_id'];
 		$query = "select * from uporabnik where user_id = '$id' limit 1";
-
 		$result = mysqli_query($con,$query);
-		if($result && mysqli_num_rows($result) > 0)
-		{
+
+		if($result && mysqli_num_rows($result) > 0){
 			$user_data = mysqli_fetch_assoc($result);
 			return $user_data;
 		}
@@ -73,17 +165,15 @@ function check_login($con)
 
 }
 
+//Preveri ce je uporabnik administrator
 function checkAdmin($con){
 
-	if(isset($_SESSION['user_id']))
-	{
+	if(isset($_SESSION['user_id'])){
 		$id = $_SESSION['user_id'];
 		$query = "select * from uporabnik where user_id = '$id' limit 1";
-
 		$result = mysqli_query($con,$query);
-		if($result && mysqli_num_rows($result) > 0)
-		{
 
+		if($result && mysqli_num_rows($result) > 0){
 			$user_data = mysqli_fetch_assoc($result);
 			if($user_data["admin"] == 1){
 				return true;	
@@ -93,21 +183,19 @@ function checkAdmin($con){
 			}
 		}
 	}
-
 	header("Location: login.php");
 	die;
 }
 
+//Preveri ali je uporabnik ze potrdil svoj email naslov, ce ne vidi dodatno okno v navigaciji kjer lahko to stori
 function checkVerify($con){
 
-	if(isset($_SESSION['user_id']))
-	{
+	if(isset($_SESSION['user_id'])){
 		$id = $_SESSION['user_id'];
 		$query = "select * from uporabnik where user_id = '$id' limit 1";
-
 		$result = mysqli_query($con,$query);
-		if($result && mysqli_num_rows($result) > 0)
-		{
+
+		if($result && mysqli_num_rows($result) > 0){
 			$user_data = mysqli_fetch_assoc($result);
 			if($user_data["potrjen"] == 0){
 				return false;	
@@ -120,70 +208,18 @@ function checkVerify($con){
 	die;
 }
 
-function pridobiUporabnika($con, $id){
-
-    $query = "select * from uporabnik where id='$id'";
-	$result = mysqli_query($con, $query);
-
-    if($result && mysqli_num_rows($result) > 0){
-		$uporabnik = mysqli_fetch_assoc($result);
-		return $uporabnik;
-	}
-
-
-	
-}
+//<<<<< KODA UPORABLJENA PRI NAVBAR.PHP >>>>>
 
 
 
 
-function pridobiUporabnike($con){
-	$query = "select * from uporabnik";
-	$result = mysqli_query($con, $query);
 
-
-
-	echo "<table class='table table-hover'>";
-	echo 
-	'<thead class="thead-dark">
-		<tr>
-			<th scope="col">ID</th>
-			<th scope="col">Uporabnisko ime</th>
-			<th scope="col">Email</th>
-			<th scope="col">Admin</th>
-			<th scope="col">Potrjen</th>
-		</tr>
-	</thead>'; 
-
-	echo '<tbody>';
-
-	while($row = mysqli_fetch_array($result)){   
-	echo "<tr><td>" . '<a href="uporabnik.php?id=' . $row["id"] . '">Uredi</a>' . "</td><td>" . $row['uporabnisko_ime'] . "</td><td>" . $row['email'] . "</td><td>" . $row['admin'] . "</td><td>" . $row['potrjen'] . "</td></tr>";  
-	}	
-
-	echo '</tbody>';
-	echo "</table>"; 
-
-	mysqli_close($con);
-}
-
-function genNewDocId($con){
-	$docId = rand(1000, 9999);
-	
-	$query = "select * from dokument where stevilkaDokumenta='$docId'";
-	$result = mysqli_query($con, $query);
-	if($result && mysqli_num_rows($result) == 0){
-		return $docId;
-	}else{
-		return $docId + 2;
-	}
-}
+//<<<<< KODA UPORABLJENA PRI DATOTEKE.PHP >>>>>
 
 function getUserDoc($con, $userId){
 	$query = "select * from dokument where tk_uporabnik='$userId'";
 	$result = mysqli_query($con, $query);
 	
-
 	echo '<form action="" method="post">';
 	echo "<table class='table table-hover'>";
 	echo 
@@ -225,5 +261,93 @@ if(isset($_POST["delBtn"])){
     $results = mysqli_query($con, $query);
     header("Location: datoteke.php");
 }
+
+//<<<<< KODA UPORABLJENA PRI DATOTEKE.PHP >>>>>
+
+
+
+
+
+//<<<<< KODA UPORABLJENA PRI UPORABNIKI.PHP >>>>>
+
+function pridobiUporabnike($con){
+	$query = "select * from uporabnik";
+	$result = mysqli_query($con, $query);
+
+	echo "<table class='table table-hover'>";
+	echo 
+	'<thead class="thead-dark">
+		<tr>
+			<th scope="col">ID</th>
+			<th scope="col">Uporabnisko ime</th>
+			<th scope="col">Email</th>
+			<th scope="col">Admin</th>
+			<th scope="col">Potrjen</th>
+		</tr>
+	</thead>'; 
+
+	echo '<tbody>';
+	while($row = mysqli_fetch_array($result)){   
+		echo "<tr>";
+			echo "<td>";
+				echo '<a href="uporabnik.php?id=' . $row["id"] . '">Uredi</a>';
+			echo "</td>";
+			echo "<td>";
+				echo $row['uporabnisko_ime'];
+			echo "</td>";
+			echo "<td>";
+				echo $row['email'];
+			echo "</td>";
+			echo "<td>";
+				if($row['admin'] == 1){echo "Da";}else{echo "Ne";}
+			echo "</td>";
+			echo "<td>";
+				if($row['potrjen'] == 1){echo "Da";}else{echo "Ne";}
+			echo "</td>";
+		echo "</tr>";
+	}
+	echo '</tbody>';
+	echo "</table>"; 
+	mysqli_close($con);
+}
+
+//<<<<< KODA UPORABLJENA PRI UPORABNIKI.PHP >>>>>
+
+
+
+
+
+
+
+function pridobiUporabnika($con, $id){
+
+    $query = "select * from uporabnik where id='$id'";
+	$result = mysqli_query($con, $query);
+
+    if($result && mysqli_num_rows($result) > 0){
+		$uporabnik = mysqli_fetch_assoc($result);
+		return $uporabnik;
+	}
+
+
+	
+}
+
+
+
+
+function genNewDocId($con){
+	$docId = rand(1000, 9999);
+	
+	$query = "select * from dokument where stevilkaDokumenta='$docId'";
+	$result = mysqli_query($con, $query);
+	if($result && mysqli_num_rows($result) == 0){
+		return $docId;
+	}else{
+		return $docId + 2;
+	}
+}
+
+
 
   
