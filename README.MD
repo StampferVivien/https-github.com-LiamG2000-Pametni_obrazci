@@ -1,4 +1,4 @@
-# Pametni obrazci {align=center}
+  # Pametni obrazci 
 
 
 ![Test Image 1](https://github.com/LiamG2000/Pametni_obrazci/blob/master/slike/logo1.png)
@@ -16,12 +16,13 @@ Obrazec ustvarimo, za svoje potrebe, izberemo komponente, ki jih potrebujemo dol
 Za editor obrazcev smo uporabili napredno odprtokodno knjižnico TinyMCE, ki nam omogoča popoln nadzor nad urejanjem besedila, in za css knjižnico smo uporabili TailWind CSS knjižnico. Tehnologije, ki smo jih uporabili pri pisanju editorja so javascript in php.
 
 
-## Engine- izpolnjevanje obrazca
+## Izpolnjevanje obrazca
 
-Obrazec poiščemo po nekem id-ju ali po imenu obrazca oziroma dokumenta izpolnimo polja v obrazcu z podatki in obrazec z klikom shranimo v pdf obliko. 
-
+Obrazec poiščemo po imenu obrazca oziroma dokumenta izpolnimo polja v obrazcu z podatki in obrazec z klikom shranimo v pdf obliko. 
 
 ## Navodila za nameščanje in uporabo aplikacije
+
+## Dostop preko localhost-a
 
 Za uporabo aplikacije potrebujemo spletni strežnik, naprimer namestimo XAMPP control pannel, ki ga namestimo na tem linku,
 https://www.apachefriends.org/download.html, na XAMPP control panelu vklopimo Apache in MySql.
@@ -29,7 +30,10 @@ https://www.apachefriends.org/download.html, na XAMPP control panelu vklopimo Ap
 Gremo na localhost/phpmyadmin in uvozimo bazo, ki je dodana v projektu.
 
 Aplikacijo odpremo in jo lahko začnemo uporabljati. Najprej se registriramo in prijavimo nato pa lahko začnemo ustvarjati svoj obrazec, ki ga poimenujemo. Obrazec lahko nato najdemo po imenu in ga izpolnimo ter pretvorimo v pdf s klikom na gumb.
+## Link do spletne strani
 
+Spletna stran je dostopna tudi preko spodnjega linka:
+ https://prototypal-confusio.000webhostapp.com/
 ## Avtorji
 
 Liam Galof, Vivien Štampfer, Alen Kaučič
