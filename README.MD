@@ -15,10 +15,13 @@ Obrazec ustvarimo, za svoje potrebe, izberemo komponente, ki jih potrebujemo dol
 
 Za editor obrazcev smo uporabili napredno odprtokodno knjižnico TinyMCE, ki nam omogoča popoln nadzor nad urejanjem besedila, in za css knjižnico smo uporabili TailWind CSS knjižnico. Tehnologije, ki smo jih uporabili pri pisanju editorja so javascript in php.
 
+![Test Image 2](https://github.com/LiamG2000/Pametni_obrazci/blob/master/slike/slika1.png)
 
 ## Izpolnjevanje obrazca
 
 Obrazec poiščemo po imenu obrazca oziroma dokumenta izpolnimo polja v obrazcu z podatki in obrazec z klikom shranimo v pdf obliko. 
+
+![Test Image 3](https://github.com/LiamG2000/Pametni_obrazci/blob/master/slike/slika2.png)
 
 ## Navodila za nameščanje in uporabo aplikacije
 
