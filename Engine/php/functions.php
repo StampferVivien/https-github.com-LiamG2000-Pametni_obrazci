@@ -1,5 +1,4 @@
 <?php
-
 function pridobiDokumente($con, $docId){
 	$query = "select * from dokument";
 	$result = mysqli_query($con, $query);
