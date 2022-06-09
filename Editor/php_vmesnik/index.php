@@ -99,9 +99,9 @@ $userID = $user_data["id"];
                   </li>
                  
                 </ul>
-                <button type="button" onclick="get_editor_content()">Shrani tekst</button>
+                <button type="button" onclick="get_editor_content()" style="display: none;">Shrani tekst</button>
                 <br>
-                <button type="button" onclick="set_editor_content()">Naloži tekst</button>
+                <button type="button" onclick="set_editor_content()" style="display: none;">Naloži tekst</button>
              </div>
         </aside>
         <main class="flex flex-col w-screen">

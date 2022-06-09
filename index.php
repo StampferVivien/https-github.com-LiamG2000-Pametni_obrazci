@@ -35,20 +35,23 @@
 
     <div style="width: 100%; height: 500px; text-align:center;" class="mainDiv">
         <div style="width: 50%; height: 100%; float: left; background: gray;" class="middleDiv" onclick="preusmeri1()"> 
-            <h1 class="naslov"><a href="./Editor/php vmesnih">Urejevalnik</a></h1> 
+            <h1 class="naslov"><a href="./Editor/php_vmesnik/index.php" id="p1">Urejevalnik</a></h1> 
         </div>
         <div style="margin-left: 50%; height: 100%; background: lightblue;" class="middleDiv" onclick="preusmeri2()"> 
-            <h1 class="naslov">Vprašalnik</h1>
+            <h1 class="naslov"><a href="./Engine/php/index.php" id="p2">Vprašalnik</a></h1>
         </div>
     </div>
 
     <script>
         function preusmeri1(){
             console.log("Preusmerjam v urejevalnik besedila");
+            document.getElementById("p1").click();
 
         }
         function preusmeri2(){
             console.log("Preusmerjam v vprašalnik");
+            document.getElementById("p2").click();
+
         }
     </script>
 
