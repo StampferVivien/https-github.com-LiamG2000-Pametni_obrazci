@@ -18,7 +18,6 @@ $userID = $user_data["id"];
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="../css/index.css"></script>
     <link href="../dist/output.css" rel="stylesheet">
-    <link rel="icon" href="./Slike/logo.jpg">
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.tiny.cloud/1/lf6b19popibawemzk9qpt3cf2eqexglq9mnzakqkvi9kh17x/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <title>Pametni obrazci</title>
@@ -28,9 +27,10 @@ $userID = $user_data["id"];
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <?php
         include ("header.php");
-        include ("navBar.php");
-    ?>  
-
+        include ("navbar.php");
+    ?>
+    
+    
     <br>
     <form method="POST">
         <div class="form-group">
@@ -94,7 +94,7 @@ $userID = $user_data["id"];
                   <li>
                      <a href="#" class="flex items-center p-2">
                         <ion-icon name="add-circle-outline"></ion-icon>
-                        <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input8"><input draggable="true" class="hover:border-blue-500" value=" Vnesi vrednost po meri" id="input_8" ondragstart="dragStart(event)"></p></span>
+                        <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input8"><input draggable="true" class="hover:border-blue-500" value=" Vrednost po meri" id="input_8" ondragstart="dragStart(event)" disabled></p></span>
                      </a>
                   </li>
                  
@@ -108,72 +108,17 @@ $userID = $user_data["id"];
             <div contenteditable="true" id="text_editor"></div>
         </main>
     </div>
-
-    <div class="m-10">
-      <div x-data="{ showModal : false }">
-         
-          <button type="button" @click="showModal = !showModal" class="invisible" id="gumb123">Open Modal</button>
-  
-          <div x-show="showModal" class="fixed text-gray-500 flex items-center justify-center overflow-auto z-50 bg-indigo-600 bg-opacity-5 left-0 right-0 top-0 bottom-0" x-transition:enter="transition ease duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
-              
-              <div x-show="showModal" class="bg-white rounded-xl shadow-2xl p-6 sm:w-3/12 mx-10" @click.away="showModal = false;delete_input()" x-transition:enter="transition ease duration-100 transform" x-transition:enter-start="opacity-0 scale-70 translate-y-1" x-transition:enter-end="opacity-80 scale-100 translate-y-0" x-transition:leave="transition ease duration-100 transform" x-transition:leave-start="opacity-70 scale-100 translate-y-0" x-transition:leave-end="opacity-0 scale-90 translate-y-1">
-                 
-                  <span class="font-bold block text-2xl mb-3">Vpišite vprašanje</span>
-                  
-                  <input type="text" id="vprasanje_input" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-  
-                  
-                  <div class="text-right space-x-5 mt-5">
-                      <button type="button" @click="showModal = !showModal" class="px-4 py-2 text-sm bg-white rounded-xl border transition-colors duration-150 ease-linear border-gray-200 text-gray-500 focus:outline-none focus:ring-0 font-bold hover:bg-gray-50 focus:bg-indigo-50 focus:text-indigo" onclick="delete_input()">Cancel</button>
-                      <button type="button" @click="showModal = !showModal" class="px-4 py-2 text-sm bg-white rounded-xl border transition-colors duration-150 ease-linear border-gray-200 text-gray-500 focus:outline-none focus:ring-0 font-bold hover:bg-gray-50 focus:bg-indigo-50 focus:text-indigo" onclick="add_id_to_input();vpis_vprasanja()">OK</button>
-                  </div>
-              </div>
-          </div>
-      </div>
-  
-     
-  </div>
-
-  <div class="m-10">
-      <div x-data="{ showModal : false }">
-         
-          <button type="button" @click="showModal = !showModal" class="invisible" id="gumb1234">Open Modal</button>
-  
-          
-          <div x-show="showModal" class="fixed text-gray-500 flex items-center justify-center overflow-auto z-50 bg-indigo-600 bg-opacity-5 left-0 right-0 top-0 bottom-0" x-transition:enter="transition ease duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
-              
-              <div x-show="showModal" class="bg-white rounded-xl shadow-2xl p-6 sm:w-3/12 mx-10" @click.away="showModal = false;delete_input()" x-transition:enter="transition ease duration-100 transform" x-transition:enter-start="opacity-0 scale-70 translate-y-1" x-transition:enter-end="opacity-80 scale-100 translate-y-0" x-transition:leave="transition ease duration-100 transform" x-transition:leave-start="opacity-70 scale-100 translate-y-0" x-transition:leave-end="opacity-0 scale-90 translate-y-1">
-                 
-                  <span class="font-bold block text-2xl mb-3">Vpišite vprašanje</span>
-                  
-                  <input type="text" id="vprasanje_input2" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
-                     <span class="font-bold block text-2xl mb-3">Vpišite vrednost po meri</span>
-                     <input type="text" id="input_placeholder" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
-  
-                  
-                  <div class="text-right space-x-5 mt-5">
-                      <button type="button" @click="showModal = !showModal" class="px-4 py-2 text-sm bg-white rounded-xl border transition-colors duration-150 ease-linear border-gray-200 text-gray-500 focus:outline-none focus:ring-0 font-bold hover:bg-gray-50 focus:bg-indigo-50 focus:text-indigo" onclick="delete_input()">Cancel</button>
-                      <button type="button" @click="showModal = !showModal" class="px-4 py-2 text-sm bg-white rounded-xl border transition-colors duration-150 ease-linear border-gray-200 text-gray-500 focus:outline-none focus:ring-0 font-bold hover:bg-gray-50 focus:bg-indigo-50 focus:text-indigo" onclick="add_id_to_input();vpis_vprasanja()">OK</button>
-                  </div>
-              </div>
-          </div>
-      </div>
-    </div>
-  <br><br><br>
-  <!------------------------------------------------------------------------------------------------------------------------------------------- -->
-
-        <div class="form-group" id="placljivo">
+    <div class="form-group" id="placljivo">
           <label for="check">Plačljivo</label>
-          <input type="checkbox" class="form-control" value="check" name="check" onclick="prikaziCeno(this)">
+          <input type="checkbox"  value="check" name="check" onclick="prikaziCeno(this)">
           <input type="hidden" name="vprasanja" id="vprasanja" on>
           <input type="hidden" name="poljeString" id="poljeString">
           <input type="hidden" name="besedilo" id="besedilo">
           <br>
-        </div>
-        
+        </div>  
         <?php
             if(checkVerify($con) == true){
-                echo '<div><button type="submit" class="btn btn-primary" name="submitbtn">Shrani</button></div>';
+                echo '<div><button type="submit" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" name="submitbtn">Shrani</button></div>';
             }else{
                 echo "Za shranjevanje je potrebno potrditi račun. To lahko storite" . ' <a href="potrditevEmail.php">tukaj</a>' ;
                 echo "<br>";
@@ -181,6 +126,10 @@ $userID = $user_data["id"];
 
         ?>
     </form>
+
+  <!------------------------------------------------------------------------------------------------------------------------------------------- -->
+        
+      
 
     <script type="text/JavaScript">
 
@@ -236,7 +185,56 @@ $userID = $user_data["id"];
             }
         }
     ?>
-    
+        <div class="m-1">
+      <div x-data="{ showModal : false }">
+         
+          <button type="button" @click="showModal = !showModal" class="invisible" id="gumb123">Open Modal</button>
+  
+          <div x-show="showModal" class="fixed text-gray-500 flex items-center justify-center overflow-auto z-50 bg-indigo-600 bg-opacity-5 left-0 right-0 top-0 bottom-0" x-transition:enter="transition ease duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+              
+              <div x-show="showModal" class="bg-white rounded-xl shadow-2xl p-6 sm:w-3/12 mx-10" @click.away="showModal = false;delete_input()" x-transition:enter="transition ease duration-100 transform" x-transition:enter-start="opacity-0 scale-70 translate-y-1" x-transition:enter-end="opacity-80 scale-100 translate-y-0" x-transition:leave="transition ease duration-100 transform" x-transition:leave-start="opacity-70 scale-100 translate-y-0" x-transition:leave-end="opacity-0 scale-90 translate-y-1">
+                 
+                  <span class="font-bold block text-2xl mb-3">Vpišite vprašanje</span>
+                  
+                  <input type="text" id="vprasanje_input" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+  
+                  
+                  <div class="text-right space-x-5 mt-5">
+                      <button type="button" @click="showModal = !showModal" class="px-4 py-2 text-sm bg-white rounded-xl border transition-colors duration-150 ease-linear border-gray-200 text-gray-500 focus:outline-none focus:ring-0 font-bold hover:bg-gray-50 focus:bg-indigo-50 focus:text-indigo" onclick="delete_input()">Cancel</button>
+                      <button type="button" @click="showModal = !showModal" class="px-4 py-2 text-sm bg-white rounded-xl border transition-colors duration-150 ease-linear border-gray-200 text-gray-500 focus:outline-none focus:ring-0 font-bold hover:bg-gray-50 focus:bg-indigo-50 focus:text-indigo" onclick="add_id_to_input();vpis_vprasanja()">OK</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  
+     
+  </div>
+
+  <div class="m-1">
+      <div x-data="{ showModal : false }">
+         
+          <button type="button" @click="showModal = !showModal" class="invisible" id="gumb1234">Open Modal</button>
+  
+          
+          <div x-show="showModal" class="fixed text-gray-500 flex items-center justify-center overflow-auto z-50 bg-indigo-600 bg-opacity-5 left-0 right-0 top-0 bottom-0" x-transition:enter="transition ease duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+              
+              <div x-show="showModal" class="bg-white rounded-xl shadow-2xl p-6 sm:w-3/12 mx-10" @click.away="showModal = false;delete_input()" x-transition:enter="transition ease duration-100 transform" x-transition:enter-start="opacity-0 scale-70 translate-y-1" x-transition:enter-end="opacity-80 scale-100 translate-y-0" x-transition:leave="transition ease duration-100 transform" x-transition:leave-start="opacity-70 scale-100 translate-y-0" x-transition:leave-end="opacity-0 scale-90 translate-y-1">
+                 
+                  <span class="font-bold block text-2xl mb-3">Vpišite vprašanje</span>
+                  
+                  <input type="text" id="vprasanje_input2" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
+                     <span class="font-bold block text-2xl mb-3">Vpišite vrednost po meri</span>
+                     <input type="text" id="input_placeholder" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
+  
+                  
+                  <div class="text-right space-x-5 mt-5">
+                      <button type="button" @click="showModal = !showModal" class="px-4 py-2 text-sm bg-white rounded-xl border transition-colors duration-150 ease-linear border-gray-200 text-gray-500 focus:outline-none focus:ring-0 font-bold hover:bg-gray-50 focus:bg-indigo-50 focus:text-indigo" onclick="delete_input()">Cancel</button>
+                      <button type="button" @click="showModal = !showModal" class="px-4 py-2 text-sm bg-white rounded-xl border transition-colors duration-150 ease-linear border-gray-200 text-gray-500 focus:outline-none focus:ring-0 font-bold hover:bg-gray-50 focus:bg-indigo-50 focus:text-indigo" onclick="add_id_to_input();vpis_vprasanja()">OK</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
 
 
 <?php
