@@ -32,7 +32,7 @@ $uporabnik = pridobiUporabnika($con, $id);
     ?>  
 
     <?php
-        echo "<b>Uporabnisko ime: </b>";
+        echo "<b>Uporabniško ime: </b>";
         echo "<p onclick='test(this)' id='uporabniskoIme'>". $uporabnik["uporabnisko_ime"] ."</p>" ;
         echo "<br>";
         echo "<b>Email: </b>";
@@ -59,8 +59,8 @@ $uporabnik = pridobiUporabnika($con, $id);
         echo '<input type="hidden" name="email" id="f2" value="">';
         echo '<input type="hidden" name="administrator" id="f3" value="">';
         echo '<input type="hidden" name="potrjen" id="f4" value="">';
-        echo "<button class='btn' type='submit' name='upDate' value='".$uporabnik['id']."' />Update</button></td>";
-        echo "<button class='btn btn-danger' type='submit' name='deleteItem' value='".$uporabnik['id']."' />Delete</button></td>";
+        echo "<button class='btn' type='submit' name='upDate' value='".$uporabnik['id']."' />Posodobi</button></td>";
+        echo "<button class='btn btn-danger' type='submit' name='deleteItem' value='".$uporabnik['id']."' />Izbriši</button></td>";
         echo '</form>';
         
         if(isset($_POST['deleteItem']) and is_numeric($_POST['deleteItem'])){

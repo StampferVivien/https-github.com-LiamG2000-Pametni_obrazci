@@ -1,13 +1,11 @@
 <?php
 session_start();
-    include ("config.php");
-    include ("functions.php");
+include ("config.php");
+include ("functions.php");
 ?>
-
 
 <!doctype html>
 <html lang="en">
-
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -19,12 +17,9 @@ session_start();
     <link rel="icon" href="./Slike/logo.jpg">
     <title>Pametni obrazci | Engine</title>
 </head>
-
 <body>
    
-    <?php
-        include ("header.php");
-    ?>  
+    <?php include ("header.php"); ?>  
 
 <div style="text-align: center;">
     <form action="" method="post">

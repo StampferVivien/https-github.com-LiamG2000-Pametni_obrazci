@@ -1,9 +1,9 @@
 <?php
 session_start();
-    include ("config.php");
-    include ("functions.php");
-    $user_data = check_login($con);
-    $userID = $user_data["id"];
+include ("config.php");
+include ("functions.php");
+$user_data = check_login($con);
+$userID = $user_data["id"];
 ?>
 
 
@@ -37,7 +37,7 @@ session_start();
           <label for="exampleInputEmail1">Naziv dokumenta</label>
           <input type="text" class="form-control" name="docName" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Vnesi naziv dokumenta">
 
-          <hr>
+          <br>
             <!---------------------------------------------------------------------------------------------------------------------------------------------------------->
         <div class="flex">
         <aside class="h-40 sticky top-0">
@@ -46,32 +46,31 @@ session_start();
                    <li>
                       <a href="#" class="flex items-center p-2">
                         <ion-icon name="person-outline"></ion-icon>
-                         <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input1"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Ime" ondragstart="dragStart(event)"> Ime</div></p></span>
+                        <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input1"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Ime" ondragstart="dragStart(event)"> Ime</div></p></span>
                       </a>
                    </li>
                    <li>
                       <a href="#" class="flex items-center p-2">
                         <ion-icon name="person"></ion-icon>
-                         <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input2"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Priimek"  ondragstart="dragStart(event)"> Priimek</div></p></span>
+                        <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input2"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Priimek"  ondragstart="dragStart(event)"> Priimek</div></p></span>
                       </a>
                    </li>
                    <li>
                       <a href="#" class="flex items-center p-2">
                         <ion-icon name="id-card-outline"></ion-icon>
-                         <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input3"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="EMŠO"  ondragstart="dragStart(event)"> EMŠO</div></p></span>
-                         
+                        <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input3"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="EMŠO"  ondragstart="dragStart(event)"> EMŠO</div></p></span>
                       </a>
                    </li>
                    <li>
                       <a href="#" class="flex items-center p-2">
                         <ion-icon name="calendar-outline"></ion-icon>
-                         <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input4"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Datum"  ondragstart="dragStart(event)"> Datum</div></p></span>
+                        <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input4"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Datum"  ondragstart="dragStart(event)"> Datum</div></p></span>
                       </a>
                    </li>
                    <li>
                       <a href="#" class="flex items-center p-2">
                         <ion-icon name="mail-outline"></ion-icon>
-                         <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input5"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Pošta"  ondragstart="dragStart(event)"> Pošta</div></p></span>
+                        <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input5"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Pošta"  ondragstart="dragStart(event)"> Pošta</div></p></span>
                       </a>
                    </li>
                    <li>
@@ -83,7 +82,7 @@ session_start();
                    <li>
                       <a href="#" class="flex items-center p-2">
                         <ion-icon name="earth-outline"></ion-icon>
-                         <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input7"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Država"  ondragstart="dragStart(event)"> Država</div></p></span>
+                        <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input7"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Država"  ondragstart="dragStart(event)"> Država</div></p></span>
                       </a>
                    </li>
                    <li>
@@ -133,7 +132,7 @@ session_start();
           </div>
       </div>
   
-      <div class="mb-10 pb-10 border-b border-gray-200"></div>
+     
   </div>
 
   <div class="m-10">
@@ -160,9 +159,7 @@ session_start();
               </div>
           </div>
       </div>
-  
-      <div class="mb-10 pb-10 border-b border-gray-200"></div>
-  </div>
+    </div>
   <br><br><br><br><br><br><br><br>
   <!------------------------------------------------------------------------------------------------------------------------------------------- -->
 

@@ -3,9 +3,11 @@ function odpriFile(id){
     id = id * 1;
     window.location.href = "../php/vprasanja.php?id=" + id + "";
 }
+
 var polje_inputov_id = [];
 var polje_inputov_value = [];
 var content_html_edit;
+
 function test(){
     console.log("test");
     let poljeString = document.getElementById("poljeString").value;
@@ -55,17 +57,18 @@ function test(){
     console.log("AAAAAAAAAAAA" + content_html_edit);
 }
 
+
 function klikni_gumb(){
   document.getElementById("shrani_pdf").click();
   }
 
-  function demoFromHTML() {
+
+function demoFromHTML(){
 
       var element = document.getElementById('div_pdf');
       var clonedElement = element.cloneNode(true);
       $(clonedElement).css("display", "block");
 
-     
       var opt = {
           margin:       1,
           filename:     'dokument.pdf',
@@ -76,8 +79,7 @@ function klikni_gumb(){
       html2pdf().set(opt).from(clonedElement).save();
   }
 
-
-  function test1(){
+function test1(){
     let poljeString = document.getElementById("poljeString").value;
 
     if(poljeString != null){
@@ -85,11 +87,10 @@ function klikni_gumb(){
       test();
       demoFromHTML();
     }
+}
 
-  }
-
-  function preusmeri(){
-    alert("Pripravljamo Vaš dokument");
-    setTimeout(() => {
-    document.getElementById("backBtn").click()}, 1000);
-  }
+function preusmeri(){
+  alert("Pripravljamo Vaš dokument");
+  setTimeout(() => {
+  document.getElementById("backBtn").click()}, 1000);
+}

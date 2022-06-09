@@ -64,7 +64,7 @@ function novUserId($con){
 	$query = "select * from uporabnik where user_id='$userId'";
 	$result = mysqli_query($con, $query);
 
-	if(mysqli_num_rows($result) >= 1){
+	if(mysqli_num_rows($result) > 0){
 		novUserId();
 	}else{
 		return $userId;
@@ -226,9 +226,9 @@ function getUserDoc($con, $userId){
 	'<thead class="thead-dark">
 		<tr>
 			<th scope="col">Naziv</th>
-			<th scope="col">Stevilka dokumenta</th>
+			<th scope="col">Številka dokumenta</th>
 			<th scope="col">Cena</th>
-			<th scope="col">Briši</th>
+			<th scope="col">Izbriši</th>
 		</tr>
 	</thead>'; 
 
@@ -246,7 +246,7 @@ function getUserDoc($con, $userId){
 			echo $row["cena"] . " $";
 		echo "</td>";
 		echo "<td>";
-			echo "<button name='delBtn' value='".$row["id"]."'>Briši</button>";
+			echo "<button name='delBtn' value='".$row["id"]."' style='color:red;'>Izbriši</button>";
 		echo "</td>";
 	echo "</tr>";
 	}
@@ -279,9 +279,9 @@ function pridobiUporabnike($con){
 	'<thead class="thead-dark">
 		<tr>
 			<th scope="col">ID</th>
-			<th scope="col">Uporabnisko ime</th>
+			<th scope="col">Uporabniško ime</th>
 			<th scope="col">Email</th>
-			<th scope="col">Admin</th>
+			<th scope="col">Administrator</th>
 			<th scope="col">Potrjen</th>
 		</tr>
 	</thead>'; 
@@ -317,34 +317,32 @@ function pridobiUporabnike($con){
 
 
 
-
+//<<<<< KODA UPORABLJENA PRI UPORABNIK.PHP >>>>>
 
 function pridobiUporabnika($con, $id){
-
     $query = "select * from uporabnik where id='$id'";
 	$result = mysqli_query($con, $query);
-
     if($result && mysqli_num_rows($result) > 0){
 		$uporabnik = mysqli_fetch_assoc($result);
 		return $uporabnik;
 	}
-
-
-	
 }
+
+//<<<<< KODA UPORABLJENA PRI UPORABNIK.PHP >>>>>
 
 
 
 
 function genNewDocId($con){
-	$docId = rand(1000, 9999);
-	
+
+	$docId = rand(10000, 99999);
 	$query = "select * from dokument where stevilkaDokumenta='$docId'";
 	$result = mysqli_query($con, $query);
-	if($result && mysqli_num_rows($result) == 0){
-		return $docId;
+
+	if(mysqli_num_rows($result) > 0){
+		genNewDocId();
 	}else{
-		return $docId + 2;
+		return $docId;
 	}
 }
 
