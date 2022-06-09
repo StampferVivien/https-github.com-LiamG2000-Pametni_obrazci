@@ -3,11 +3,9 @@ function odpriFile(id){
     id = id * 1;
     window.location.href = "../php/vprasanja.php?id=" + id + "";
 }
-
 var polje_inputov_id = [];
 var polje_inputov_value = [];
 var content_html_edit;
-
 function test(){
     console.log("test");
     let poljeString = document.getElementById("poljeString").value;
@@ -23,11 +21,11 @@ function test(){
 
     console.log(atob(poljeString));
     console.log(besediloDecoded);
-    console.log(vprasanja1);
+    console.log("GGGGGGGGGGGGG" +vprasanja1.length);
     console.log(odgovori1);
    
     const str = $(`<div id="parent"> ${polje_string} </div>`);
-    for(var i=1;i<10;i++){
+    for(var i=1;i<vprasanja1.length;i++){
       polje_inputov_id[i-1] = str.find(':nth-child(' + i + ')').attr('id');
       if(str.find(':nth-child(' + i + ')').attr('value') == "EMŠO"){
         polje_inputov_value[i-1] = "EM&Scaron;O";
@@ -41,7 +39,7 @@ function test(){
       console.log("polje_inputov_value " + polje_inputov_value);
       
     } 
-    for(var j=0;j<10;j++){
+    for(var j=0;j<parseInt(vprasanja1.length+1);j++){
     var n = content_html_edit;
     if(j==0){
       content_html_edit = content_html.replace(`<input id="${polje_inputov_id[j]}" style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="${polje_inputov_value[j]}">`, `${odgovori1[j]}`);
