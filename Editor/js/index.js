@@ -13,10 +13,14 @@ var input_pomeri = false;
 var vprasanje_pomeri = false;
 var event_value = "";
 var placeholder;
-
-
+var content_html = null;
+let besedilo = document.getElementById("besedilo");
 tinymce.init({
   selector: '#text_editor',
+  menubar:false,
+  statusbar: false,
+  plugins: 'autoresize',
+  height : "600",
   init_instance_callback: function(editor) {
     editor.on('drop', function(e) {
     if(nekaj == true){
@@ -30,12 +34,21 @@ tinymce.init({
        nekaj=false;
     }
     });
+    editor.on('keyup', function(e) {
+      content_html = tinyMCE.get('text_editor').getContent();
+      besedilo.setAttribute("value", content_html);
+      console.log("content_html " +content_html);
+      });
   },
   plugins: 'image paste',
-  images_file_types: ''
+  images_file_types: '',
+  onchange_callback : "myCustomOnChangeHandler"
 });
+function myCustomOnChangeHandler(inst) {
+  alert("Some one modified something");
+  alert("The HTML is now:" + inst.getBody().innerHTML);
+}
 
-var content_html = null;
 function get_editor_content() {
   console.debug(tinyMCE.activeEditor.getContent());
   content_html = tinyMCE.get('text_editor').getContent();
@@ -167,9 +180,8 @@ function vpis_vprasanja(){
   vprasanja.setAttribute("value", json_file);
   let inputString = document.getElementById("poljeString");
   inputString.setAttribute("value", polje_string);
-  let besedilo = document.getElementById("besedilo");
   let html = tinyMCE.get('text_editor').getContent();
-  console.log(html);
-  besedilo.setAttribute("value", html);
+  console.log();
+  besedilo.setAttribute("value", content_html);
   
   }
