@@ -35,7 +35,7 @@ $userID = $user_data["id"];
     <form method="POST">
         <div class="form-group">
           <label for="exampleInputEmail1">Naziv dokumenta</label>
-          <input type="text" class="form-control" name="docName" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Vnesi naziv dokumenta">
+          <input type="text" class="form-control" name="docName" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Vnesi naziv dokumenta" required="true">
 
           <br>
             <!---------------------------------------------------------------------------------------------------------------------------------------------------------->
@@ -146,9 +146,9 @@ $userID = $user_data["id"];
                  
                   <span class="font-bold block text-2xl mb-3">Vpišite vprašanje</span>
                   
-                  <input type="text" id="vprasanje_input2" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                  <input type="text" id="vprasanje_input2" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
                      <span class="font-bold block text-2xl mb-3">Vpišite vrednost po meri</span>
-                     <input type="text" id="input_placeholder" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                     <input type="text" id="input_placeholder" class="bg-gray-50 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
   
                   
                   <div class="text-right space-x-5 mt-5">
@@ -196,6 +196,7 @@ $userID = $user_data["id"];
             input.setAttribute("type", "number");
             input.setAttribute("placeholder", "Vnesi ceno");
             input.setAttribute("name", "docPrice");
+            input.setAttribute("required", "true");
             let box = me;
             let div = document.getElementById("placljivo");
             if(box.checked == true){

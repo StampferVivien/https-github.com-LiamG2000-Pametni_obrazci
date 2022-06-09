@@ -1,4 +1,4 @@
-var inputValue = "123";
+var inputValue = "";
 const replaced = "";  
 var i = 0;
 var polje_string = ""; 
@@ -13,6 +13,8 @@ var input_pomeri = false;
 var vprasanje_pomeri = false;
 var event_value = "";
 var placeholder;
+
+
 tinymce.init({
   selector: '#text_editor',
   init_instance_callback: function(editor) {
@@ -31,7 +33,6 @@ tinymce.init({
   },
   plugins: 'image paste',
   images_file_types: ''
-  
 });
 
 var content_html = null;

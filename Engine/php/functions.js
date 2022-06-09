@@ -10,10 +10,12 @@ var content_html_edit;
 
 function test(){
     console.log("test");
+    let odgovori = document.getElementById("odgovori").value;
+    
     let poljeString = document.getElementById("poljeString").value;
     let besedilo = document.getElementById("besedilo").value;
     let vprasanja = document.getElementById("vprasanja").value;
-    let odgovori = document.getElementById("odgovori").value;
+    
 
     let besediloDecoded = atob(besedilo);
     let vprasanja1 = JSON.parse(vprasanja);
@@ -23,11 +25,11 @@ function test(){
 
     console.log(atob(poljeString));
     console.log(besediloDecoded);
-    console.log("GGGGGGGGGGGGG" +vprasanja1.length);
+    console.log(vprasanja1.length);
     console.log(odgovori1);
    
     const str = $(`<div id="parent"> ${polje_string} </div>`);
-    for(var i=1;i<vprasanja1.length;i++){
+    for(var i=1;i<vprasanja1.length + 1;i++){
       polje_inputov_id[i-1] = str.find(':nth-child(' + i + ')').attr('id');
       if(str.find(':nth-child(' + i + ')').attr('value') == "EMŠO"){
         polje_inputov_value[i-1] = "EM&Scaron;O";
@@ -41,7 +43,7 @@ function test(){
       console.log("polje_inputov_value " + polje_inputov_value);
       
     } 
-    for(var j=0;j<parseInt(vprasanja1.length+1);j++){
+    for(var j=0;j<vprasanja1.length;j++){
     var n = content_html_edit;
     if(j==0){
       content_html_edit = content_html.replace(`<input id="${polje_inputov_id[j]}" style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="${polje_inputov_value[j]}">`, `${odgovori1[j]}`);
@@ -56,12 +58,6 @@ function test(){
     document.getElementById("div_pdf").innerHTML =  content_html_edit;
     console.log("AAAAAAAAAAAA" + content_html_edit);
 }
-
-
-function klikni_gumb(){
-  document.getElementById("shrani_pdf").click();
-  }
-
 
 function demoFromHTML(){
 
