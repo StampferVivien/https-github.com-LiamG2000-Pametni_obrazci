@@ -5,6 +5,8 @@
 
 ## O naših strani 
 
+![Test Image 3](https://github.com/LiamG2000/Pametni_obrazci/blob/master/slike/Slika5.png)
+
 Stran omogoča kreacijo obrazca in reševanje obrazca tako kot tudi pregled obrazcev, ki jih je ustvaril določen uporabnik in pretvorbo ipolnjenega obrazca v pdf datoteko.
 
 ## Kako ustvariti obrazec?
@@ -21,7 +23,7 @@ Za editor obrazcev smo uporabili napredno odprtokodno knjižnico TinyMCE, ki nam
 
 Obrazec poiščemo po imenu obrazca oziroma dokumenta izpolnimo polja v obrazcu z podatki in obrazec z klikom shranimo v pdf obliko. 
 
-![Test Image 3](https://github.com/LiamG2000/Pametni_obrazci/blob/master/slike/Slika5.png)
+![Test Image 4](https://github.com/LiamG2000/Pametni_obrazci/blob/master/slike/Slika16.png)
 
 ## Navodila za nameščanje in uporabo aplikacije
 
