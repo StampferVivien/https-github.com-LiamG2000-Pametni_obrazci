@@ -40,7 +40,7 @@ $userID = $user_data["id"];
           <br>
             <!---------------------------------------------------------------------------------------------------------------------------------------------------------->
         <div class="flex">
-        <aside class="h-40 sticky top-0">
+        <aside class="h-40 sticky">
             <div class="overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
                 <ul class="space-y-2">
                    <li>
@@ -114,7 +114,6 @@ $userID = $user_data["id"];
          
           <button type="button" @click="showModal = !showModal" class="invisible" id="gumb123">Open Modal</button>
   
-          
           <div x-show="showModal" class="fixed text-gray-500 flex items-center justify-center overflow-auto z-50 bg-indigo-600 bg-opacity-5 left-0 right-0 top-0 bottom-0" x-transition:enter="transition ease duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
               
               <div x-show="showModal" class="bg-white rounded-xl shadow-2xl p-6 sm:w-3/12 mx-10" @click.away="showModal = false;delete_input()" x-transition:enter="transition ease duration-100 transform" x-transition:enter-start="opacity-0 scale-70 translate-y-1" x-transition:enter-end="opacity-80 scale-100 translate-y-0" x-transition:leave="transition ease duration-100 transform" x-transition:leave-start="opacity-70 scale-100 translate-y-0" x-transition:leave-end="opacity-0 scale-90 translate-y-1">
@@ -160,16 +159,15 @@ $userID = $user_data["id"];
           </div>
       </div>
     </div>
-  <br><br><br><br><br><br><br><br>
+  <br><br><br>
   <!------------------------------------------------------------------------------------------------------------------------------------------- -->
 
         <div class="form-group" id="placljivo">
           <label for="check">Plačljivo</label>
           <input type="checkbox" class="form-control" value="check" name="check" onclick="prikaziCeno(this)">
-          <input type="hidden" name="vprasanja" id="vprasanja">
+          <input type="hidden" name="vprasanja" id="vprasanja" on>
           <input type="hidden" name="poljeString" id="poljeString">
           <input type="hidden" name="besedilo" id="besedilo">
-
           <br>
         </div>
         
@@ -236,9 +234,6 @@ $userID = $user_data["id"];
                 echo mysqli_error($con);
             }
         }
-
-        
-
     ?>
     
 
