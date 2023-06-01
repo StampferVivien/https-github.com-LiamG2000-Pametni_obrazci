@@ -56,6 +56,9 @@ function preveriMail($con, $mail){
 	if($result && mysqli_num_rows($result) == 0){
 		return true;
 	}
+	else{
+		return false;
+	}
 }
 
 //Generira nov user_id ter pregleda, da identicen ze ne obstaja
@@ -72,27 +75,59 @@ function novUserId($con){
 }
 
 //Poslje mail s narejeno verifikacijsko kodo
-function posliMail($email,$veritificationcode ){
-	ini_set("SMTP","ssl:smtp.office365.com" );
-	ini_set("smtp_port","587");
-	ini_set('sendmail_from', 'pametni.obrazci@outlook.com');
+//function posliMail($email,$veritificationcode ){
+	//ini_set("SMTP","ssl:smtp.office365.com" );
+	//ini_set("smtp_port","587");
+	//ini_set('sendmail_from', 'pametni.obrazci@outlook.com');
 
-	$to = $email;
-	$subject = "Test mail";
-	$message = "Hello! This is a simple email message. ".$veritificationcode;
-	$from = "pametni.obrazci@outlook.com";
-	$headers = "From:" . $from;
-	$retval = mail($to,$subject,$message,$headers);
+	//$to = $email;
+	//$subject = "Test mail";
+	//$message = "Hello! This is a simple email message. ".$veritificationcode;
+	//$from = "pametni.obrazci@outlook.com";
+	//$headers = "From:" . $from;
+	//$retval = mail($to,$subject,$message,$headers);
 
-	if( $retval == true ){
-	  	return true;
-	}else{
-		return false;
-	}
-}
+	//if( $retval == true ){
+	//  	return true;
+	//}else{
+		//return false;
+	//}
+//}
 
 //<<<<< KODA UPORABLJENA PRI REGISTRACIJA.PHP >>>>> 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require './PHPMailer/src/Exception.php';
+require './PHPMailer/src/PHPMailer.php';
+require './PHPMailer/src/SMTP.php';
 
+
+if(isset($_POST['register'])){
+	
+	
+	$name = htmlentities($_POST['username']);
+	$email = htmlentities($_POST['email']);
+
+
+	$mail = new PHPMailer(true);
+	$mail->isSMTP();
+	$mail->Host = 'smtp.gmail.com';
+	$mail->SMTPAuth = true;
+	$mail->Username = 'pametni.obrazci@gmail.com';
+	$mail->Password ='dxtqzjxjifzhmeik';
+	$mail->Port=465;
+	$mail->SMTPSecure = 'ssl';
+	$mail->isHTML(true);
+	$mail->addAddress('pametni.obrazci@gmail.com');
+	$mail->Subject = 'Test Mail';
+	$mail->setFrom('pametni.obrazci@gmail.com');
+	$mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+
+
+	$mail->send();
+    echo "<script>console.log('msg send');</script>";
+}
+  
 
 
 

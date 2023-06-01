@@ -32,7 +32,7 @@ include ("functions.php");
 		            <input type="password" name="password" id="geslo" class="form-control" placeholder="Geslo">
 		        </div>
 		        <div class="form-group">
-		            <button type="submit" name="register" class="btn btn-primary" value="Registriraj Me">Prijava</button>
+		            <button type="submit" name="login" class="btn btn-primary" value="Registriraj Me">Prijava</button>
 					<span class="error"><?php echo $Errrandom;?></span>
 		        </div>
 		        <a href="registracija.php">Registracija</a><br><br>
