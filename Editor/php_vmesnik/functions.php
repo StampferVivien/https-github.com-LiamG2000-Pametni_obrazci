@@ -1,10 +1,15 @@
 <?php
-
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require './PHPMailer/src/Exception.php';
+require './PHPMailer/src/PHPMailer.php';
+require './PHPMailer/src/SMTP.php';
 //<<<<< KODA UPORABLJENA PRI REGISTRACIJA.PHP >>>>>
 
 //Nastavljanej vrednosti
 $Erruser_name = $Erremail = $Erremailzaseden = $Errpassword = $ErrRandom = "";
 $user_name = $email = $password = "";
+$verificationCode = rand(10000, 99999);
 
 //Pritisk gumba "Potrdi"
 if($_SERVER['REQUEST_METHOD'] == "POST"){
@@ -20,6 +25,24 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
   }else{
     if(preveriMail($con, $_POST["email"]) == true){
       $email = $_POST["email"];
+	  $mail = new PHPMailer(true);
+	  $mail->isSMTP();
+	  $mail->Host = 'smtp.gmail.com';
+	  $mail->SMTPAuth = true;
+	  $mail->Username = 'pametni.obrazci@gmail.com';
+	  $mail->Password ='dxtqzjxjifzhmeik';
+	  $mail->Port=465;
+	  $mail->SMTPSecure = 'ssl';
+	  $mail->isHTML(true);
+	  $mail->AddAddress($email);
+	  $mail->Subject = 'Potrditvena koda';
+	  $mail->setFrom('pametni.obrazci@gmail.com');
+	  $mail->Body    = '<b>Vaša potrditvena koda za spletno stran PAMETNI OBRAZCI je tukaj!</b>'.$verificationCode;
+  
+  
+	  $mail->send();
+
+
     }else{
       $Erremail = "Email je že v uporabi";
     }
@@ -32,7 +55,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
   }
   //Ce je vse vneseno se zacne vnos v bazo
   if(!empty($user_name) && !empty($password) && !empty($email)){
-    $verificationCode = rand(10000, 99999);
+   //
     $user_id = novUserId($con);
     $stmt = $con -> prepare("insert into uporabnik (uporabnisko_ime, email, geslo, user_id, verificationCode) values (?,?,?,?,?)");
     $stmt -> bind_param("sssii", $user_name, $email, $password, $user_id, $verificationCode);
@@ -95,19 +118,17 @@ function novUserId($con){
 //}
 
 //<<<<< KODA UPORABLJENA PRI REGISTRACIJA.PHP >>>>> 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-require './PHPMailer/src/Exception.php';
-require './PHPMailer/src/PHPMailer.php';
-require './PHPMailer/src/SMTP.php';
 
 
-if(isset($_POST['register'])){
+
+/*if(isset($_POST['register'])){
 	
 	
-	$name = htmlentities($_POST['username']);
-	$email = htmlentities($_POST['email']);
-
+	//$name = $_POST['name'];
+	//$email = htmlentities($_POST['email']);
+	//$email = $_POST['email'];
+	$email = "pametni.obrazci@gmail.com";
+	echo "<script>console.log($email);</script>";
 
 	$mail = new PHPMailer(true);
 	$mail->isSMTP();
@@ -118,7 +139,7 @@ if(isset($_POST['register'])){
 	$mail->Port=465;
 	$mail->SMTPSecure = 'ssl';
 	$mail->isHTML(true);
-	$mail->addAddress('pametni.obrazci@gmail.com');
+	$mail->AddAddress($email);
 	$mail->Subject = 'Test Mail';
 	$mail->setFrom('pametni.obrazci@gmail.com');
 	$mail->Body    = 'This is the HTML message body <b>in bold!</b>';
@@ -126,7 +147,7 @@ if(isset($_POST['register'])){
 
 	$mail->send();
     echo "<script>console.log('msg send');</script>";
-}
+}*/
   
 
 
