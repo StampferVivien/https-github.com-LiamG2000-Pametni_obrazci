@@ -4,6 +4,8 @@ error_reporting( E_ALL );
 session_start();
 include ("config.php");
 include ("functions.php");
+
+
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +22,7 @@ include ("functions.php");
   </head>
   <body>
     <?php include ("header.php"); ?>
+    
     <div class="modal-body">
       <form name="myform" class="form-detail" method="POST" id="dodajUporabnikaForm" enctype="multipart/form-data">
         <h2>Registracija</h2>
@@ -45,6 +48,21 @@ include ("functions.php");
       </form>
       <a href="login.php">Prijava</a><br><br>
     </div>
-    <?php include ("footer.php")?>
-  </body>
+    </body>
 </html>
+
+    <?php
+
+
+
+
+  
+    
+    
+    
+    
+   
+
+
+?>
+    <?php include ("footer.php")?>
