@@ -42,14 +42,8 @@ $id = $_GET["id"];
         // Assuming $object is the object you want to convert into an array
         $jsonString = json_encode($documentFile);
         $array = json_decode($jsonString, true);
-
-        #print_r($array);
-
-
         $poljeString = $wholeDok["poljeString"];
-        #print_r($poljeString);
         $html = $array["besedilo"];
-        #print_r($html);
         
         echo "Naziv dokumenta: " . $array["naziv"];
         echo "<br>";
@@ -178,7 +172,6 @@ $id = $_GET["id"];
         }
 
         $vprasanjaRaw = json_encode($vprasanjaRaw);
-        print_r($vprasanjaRaw);
         
         if(isset($_POST["shrani"])){
             $odgovoriDec = json_encode($odgovoriDec);

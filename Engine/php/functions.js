@@ -25,9 +25,10 @@ function test(){
   console.log("odgovori1 " +odgovori1);
   console.log("polje_string " +polje_string);
   console.log("content_html " +content_html);
-  var content_html_KoDela = content_html.replace(/Ä/g, "č").replace(/Å¾/g, "ž").replace(/Å½/g, "Ž");
-  var polje_string_KoDela = polje_string.replace(/Ä/g, "č").replace(/Å¾/g, "ž").replace(/Å½/g, "Ž");
-
+  var content_html_KoDela = content_html.replace(/Ä/g, "č").replace(/Å¾/g, "ž").replace(/Å½/g, "Ž").replace(/Å½/g, "Ž").replace(/Å¡/g, "š").replace(/Å /g, "Š").replace(/&scaron;/g, "š").replace(/&Scaron;/g, "Š");
+  var polje_string_KoDela = polje_string.replace(/Ä/g, "č").replace(/Å¾/g, "ž").replace(/Å½/g, "Ž").replace(/Å½/g, "Ž").replace(/Å¡/g, "š").replace(/Å /g, "Š").replace(/&scaron;/g, "š").replace(/&Scaron;/g, "Š");
+  console.log("content_html_KoDela " +content_html_KoDela);
+  console.log("polje_string_KoDel " +polje_string_KoDela);
   const str = $(`<div id="parent"> ${polje_string_KoDela} </div>`);
   for(var i=1;i<vprasanja1.length + 1;i++){
     polje_inputov_id[i-1] = str.find(':nth-child(' + i + ')').attr('id');
