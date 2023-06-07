@@ -3,7 +3,7 @@
 
 ![Test Image 1](https://github.com/LiamG2000/Pametni_obrazci/blob/master/slike/logo1.png)
 
-## O naših strani 
+## O naši strani 
 
 ![Test Image 3](https://github.com/LiamG2000/Pametni_obrazci/blob/master/slike/Slika5.png)
 
