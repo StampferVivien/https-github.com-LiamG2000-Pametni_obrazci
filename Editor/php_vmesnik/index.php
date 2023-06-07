@@ -5,6 +5,41 @@ include ("functions.php");
 $user_data = check_login($con);
 $userID = $user_data["id"];
 
+if(isset($_GET["idDokumenta"])){
+    $idDokumenta = $_GET["idDokumenta"];
+    $query = "select * from dokumenti where dokument_Id='$idDokumenta'";
+    $results = mysqli_query($con, $query);
+
+    $results = mysqli_fetch_assoc($results);
+   
+    $dokumentDecoded = base64_decode($results["datoteka"]);
+    $dokumentNeseria = unserialize($dokumentDecoded);
+	$jsonString = json_encode($dokumentNeseria);
+    $array = json_decode($jsonString, true);
+    
+    $staraVprasanja = [];
+
+    foreach($array["vprasanja"] as $vprasanje){
+        $staraVprasanja[] = $vprasanje["vprasanje"];
+    }
+
+    $staraVprasanja = json_encode($staraVprasanja);
+
+    $paramValue = $array["besedilo"];
+    $paramVprasanja = $staraVprasanja;
+    $inputiEncoded = ($results["poljeString"]);
+    $paramInputov = $inputiEncoded;
+
+}else{
+    $idDokumenta = "";
+    $paramValue = "";
+    $paramVprasanja = "";
+    $paramInputov =  "";
+}
+
+
+
+/*
 if(isset($_GET["param2"])){
     $paramValue = $_GET["param2"];
     $paramVprasanja = $_GET["param1"];
@@ -14,6 +49,8 @@ if(isset($_GET["param2"])){
     $paramVprasanja = "";
     $paramInputov =  "";
 }
+
+*/
 ?>
 
 
@@ -121,9 +158,9 @@ if(isset($_GET["param2"])){
     <div class="form-group" id="placljivo">
           <label for="check">Plačljivo</label>
           <input type="checkbox"  value="check" name="check" onclick="prikaziCeno(this)">
-          <input type="hidden"  name="vprasanja" <?php echo "value='". $paramVprasanja ."'" ?> id="vprasanja">
-          <input type="hidden"  name="poljeString" <?php echo "value='". $paramInputov ."'" ?> id="poljeString">
-          <input type="hidden"  name="besedilo" <?php echo "value='". $paramValue ."'" ?> id="besedilo">
+          <input type="hidden"  name="vprasanja" id="vprasanja"/>
+          <input type='hidden'  name='poljeString'  id='poljeString'/>
+          <input type="hidden"  name="besedilo"  id="besedilo" >
           <?php echo "<input type='hidden' id='besediloIzBaze' value='". $paramValue ."'>"; 
                 echo "<input type='hidden' id='vprasanjaIzBaze' value='". $paramVprasanja ."'>";
                 echo "<input type='hidden' id='StringInputov' value='". $paramInputov ."'>";
@@ -174,6 +211,7 @@ if(isset($_GET["param2"])){
 
 
     <?php
+
         if(isset($_POST["submitbtn"])){
             $docName = strtolower($_POST["docName"]);
             $docPrice = 0;
@@ -198,13 +236,9 @@ if(isset($_GET["param2"])){
             $pattern = "/<input.*?value='(.*?)'.*?>/i";
             preg_match_all($pattern, $poljeString, $matches);
 
-            print_r($poljeString);
-
             $inputValues = $matches[1];
 
             $type = $inputValues;
-
-            print_r($type);
 
             foreach($vprasanjaArray as $vprasanje){
                 $novoVprasanje = [
@@ -219,8 +253,6 @@ if(isset($_GET["param2"])){
             $samoVprasanja[] = $novoVprasanje;
             }
 
-            
-
             $dokument1 = new Dokument($docName, $docPrice, $samoVprasanja, $besedilo);
             $dokument1String = serialize($dokument1);
 
@@ -230,7 +262,6 @@ if(isset($_GET["param2"])){
 
             #$query = "insert into dokument (naziv, cena, stevilkaDokumenta, vprasanja, poljeString, besedilo, tk_uporabnik) values ('$docName', '$docPrice', '$docId', '$vprasanja', '$coded', '$besedilo', '$userID')";
 
-            
             if(mysqli_query($con, $query) == true){
                 echo "Datoteka uspešno shranjena. Za dostop do nje uporabite sledečo identifikacijsko številko: ";
                 echo "<br>";
@@ -239,7 +270,6 @@ if(isset($_GET["param2"])){
             }else{
                 echo mysqli_error($con);
             }
-            
         }
         
     ?>

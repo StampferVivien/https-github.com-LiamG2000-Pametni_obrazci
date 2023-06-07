@@ -296,18 +296,11 @@ function getUserDoc($con, $userId){
 		$dokumentDecoded = base64_decode($row[2]);
 		$documentIdNumber = $row[1];
 
-		#print_r($documentIdNumber);
-
-		#print_r($dokumentDecoded);
-
         $dokumentNeseria = unserialize($dokumentDecoded);
 
 		$jsonString = json_encode($dokumentNeseria);
         $array = json_decode($jsonString, true);
 
-
-		#print_r($array);
-		
 
 	echo "<tr>";
 		echo "<td>";
@@ -339,42 +332,20 @@ if(isset($_POST["delBtn"])){
 
     header("Location: datoteke.php");
 }
+
 if (isset($_POST["editBtn"])) {
     $documentIdNumber = $_POST["editBtn"];
     $query = "select * from dokumenti where dokument_Id='$documentIdNumber'";
     $results = mysqli_query($con, $query);
 
-
-	$document = mysqli_fetch_assoc($results);
-	#print_r($document);
-	$datoteka = $document["datoteka"];
-	#print_r($datoteka);
-	$decodedFile = base64_decode($datoteka);
-	#print_r($decodedFile);
-	$dokumentNeseria = unserialize($decodedFile);
-	#print_r($dokumentNeseria);
-	$jsonString = json_encode($dokumentNeseria);
-    $array = json_decode($jsonString, true);
-
-
-	print_r($document["poljeString"]);
-
-
-	$document["poljeString"];
-
-	$vprasanja = [];
-
-	foreach($array["vprasanja"] as $vprasanje){
-		$vprasanja[] = $vprasanje["vprasanje"];
-	}
-
     if ($results && mysqli_num_rows($results) > 0) {
         $dokumentBesedilo = $array["besedilo"];
         $documentVprasanja = json_encode($vprasanja);
         $documentStringInputov = $document["poljeString"];
+		
 
         // Redirect to index.php with parameters
-        $redirectUrl = "index.php?param1=" . urlencode($documentVprasanja) . "&param2=" . urlencode($dokumentBesedilo) . "&param3=" . urlencode($documentStringInputov);
+        $redirectUrl = "index.php?idDokumenta=" . urldecode($documentIdNumber);
         header("Location: " . $redirectUrl);
         exit; // Make sure to exit after the header redirect
     } else {
