@@ -1,9 +1,9 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-require './PHPMailer/src/Exception.php';
-require './PHPMailer/src/PHPMailer.php';
-require './PHPMailer/src/SMTP.php';
+#require './PHPMailer/src/Exception.php';
+#require './PHPMailer/src/PHPMailer.php';
+#require './PHPMailer/src/SMTP.php';
 //<<<<< KODA UPORABLJENA PRI REGISTRACIJA.PHP >>>>>
 
 //Nastavljanej vrednosti
@@ -273,7 +273,7 @@ function checkVerify($con){
 //<<<<< KODA UPORABLJENA PRI DATOTEKE.PHP >>>>>
 
 function getUserDoc($con, $userId){
-	$query = "select * from dokument where tk_uporabnik='$userId'";
+	$query = "select * from dokumenti where tk_uporabnik='$userId'";
 	$result = mysqli_query($con, $query);
 	
 	echo '<form action="" method="post">';
@@ -289,23 +289,41 @@ function getUserDoc($con, $userId){
 	</thead>'; 
 
 	echo '<tbody>';
-
+	
+	
 	while($row = mysqli_fetch_array($result)){   
+
+		$dokumentDecoded = base64_decode($row[2]);
+		$documentIdNumber = $row[1];
+
+		#print_r($documentIdNumber);
+
+		#print_r($dokumentDecoded);
+
+        $dokumentNeseria = unserialize($dokumentDecoded);
+
+		$jsonString = json_encode($dokumentNeseria);
+        $array = json_decode($jsonString, true);
+
+
+		#print_r($array);
+		
+
 	echo "<tr>";
 		echo "<td>";
-			echo $row["naziv"];
+			echo $array["naziv"];
 		echo "</td>";
 		echo "<td>";
-			echo $row["stevilkaDokumenta"];
+			echo $documentIdNumber;
 		echo "</td>";
 		echo "<td>";
-			echo $row["cena"] . " $";
+			echo $array["cena"] . " $";
 		echo "</td>";
 		echo "<td>";
-			echo "<button name='delBtn' value='".$row["id"]."' style='color:red;'>Izbriši</button>";
+			echo "<button name='delBtn' value='".$documentIdNumber."' style='color:red;'>Izbriši</button>";
 		echo "</td>";
 		echo "<td>";
-			echo "<button name='editBtn' value='".$row["id"]."' style='color:black;'>Edit</button>";
+			echo "<button name='editBtn' value='".$documentIdNumber."' style='color:black;'>Edit</button>";
 		echo "</td>";
 	echo "</tr>";
 	}
@@ -315,14 +333,15 @@ function getUserDoc($con, $userId){
 }
 
 if(isset($_POST["delBtn"])){
-	$documentId = $_POST["delBtn"];
-	$query = "delete from dokument where id='$documentId'";
+	$documentIdNumber = $_POST["delBtn"];
+	$query = "delete from dokumenti where dokument_Id='$documentIdNumber'";
     $results = mysqli_query($con, $query);
+
     header("Location: datoteke.php");
 }
 if (isset($_POST["editBtn"])) {
-    $documentId = $_POST["editBtn"];
-    $query = "select * from dokument where id='$documentId'";
+    $documentIdNumber = $_POST["editBtn"];
+    $query = "select * from dokumenti where dokument_Id='$documentIdNumber'";
     $results = mysqli_query($con, $query);
 
     if ($results && mysqli_num_rows($results) > 0) {
@@ -414,7 +433,7 @@ function pridobiUporabnika($con, $id){
 function genNewDocId($con){
 
 	$docId = rand(10000, 99999);
-	$query = "select * from dokument where stevilkaDokumenta='$docId'";
+	$query = "select * from dokumenti where dokument_Id='$docId'";
 	$result = mysqli_query($con, $query);
 
 	if(mysqli_num_rows($result) > 0){

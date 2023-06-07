@@ -32,63 +32,6 @@ $id = $_GET["id"];
     <div style="text-align:center;">
         <?php
 
-/*
-        $stVprasanj = 0;
-
-        $documentFile = [
-            "naziv" => "Moj testni dokument",
-            "cena" => 9.99,
-            "vprasanja" => [
-                [
-                    "vprasanjeId" => 0,
-                    "vprasanje" => "Vase ime",
-                    "dataType" => "string",
-                    "odgovor" => ""
-                ],
-                [
-                    "vprasanjeId" => 1,
-                    "vprasanje" => "Vas priimek",
-                    "dataType" => "string",
-                    "odgovor" => ""
-                ],
-                [
-                    "vprasanjeId" => 2,
-                    "vprasanje" => "Vas EMSO",
-                    "dataType" => "emso",
-                    "odgovor" => ""
-                ],
-                [
-                    "vprasanjeId" => 3,
-                    "vprasanje" => "Rojstni datum",
-                    "dataType" => "date",
-                    "odgovor" => ""
-                ],
-                [
-                    "vprasanjeId" => 4,
-                    "vprasanje" => "Poštna številka",
-                    "dataType" => "postalNumber",
-                    "odgovor" => ""
-                ],
-                [
-                    "vprasanjeId" => 5,
-                    "vprasanje" => "Telefonska stevilka",
-                    "dataType" => "tel",
-                    "odgovor" => ""
-                ],
-                [
-                    "vprasanjeId" => 6,
-                    "vprasanje" => "Država",
-                    "dataType" => "country",
-                    "odgovor" => ""
-                ]
-            ],
-
-            "besedilo" => "Pozdravljeni, {0} {1}. Vaš EMSO je {2}, rojstni datum je {3}, poštna številka je {4}, telefonska številka je {5}, in država je {6}."
-
-        ];
-        */
-
-
         $wholeDok = pridobiDokument($con, $id);
 
         $dokument1Object = base64_decode($wholeDok["datoteka"]);
@@ -239,9 +182,7 @@ $id = $_GET["id"];
 
         $vprasanjaRaw = json_encode($vprasanjaRaw);
         print_r($vprasanjaRaw);
-        $odgovoriDec = json_encode($odgovoriDec);
-        print_r($odgovoriDec);
-        
+    
         if(isset($_POST["shrani"])){
             $odgovoriDec = json_encode($odgovoriDec);
             echo "<input type='hidden'  id='odgovori' value='". $odgovoriDec."'>";
