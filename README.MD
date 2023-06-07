@@ -21,7 +21,7 @@ Za editor obrazcev smo uporabili napredno odprtokodno knjižnico TinyMCE, ki nam
 
 ## Izpolnjevanje obrazca
 
-Obrazec poiščemo po imenu obrazca oziroma dokumenta izpolnimo polja v obrazcu z podatki in obrazec z klikom shranimo v pdf obliko. 
+Obrazec poiščemo po številki dokumenta in izpolnimo polja v obrazcu z podatki in obrazec z klikom shranimo v pdf obliko. 
 
 ![Test Image 4](https://github.com/LiamG2000/Pametni_obrazci/blob/master/slike/image6.png)
 
