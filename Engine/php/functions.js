@@ -16,7 +16,6 @@ function test(){
     let besedilo = document.getElementById("besedilo").value;
     let vprasanja = document.getElementById("vprasanja").value;
     
-
     let besediloDecoded = atob(besedilo);
     let vprasanja1 = JSON.parse(vprasanja);
     let odgovori1 = JSON.parse(odgovori);
@@ -33,8 +32,8 @@ function test(){
       polje_inputov_id[i-1] = str.find(':nth-child(' + i + ')').attr('id');
       if(str.find(':nth-child(' + i + ')').attr('value') == "EMŠO"){
         polje_inputov_value[i-1] = "EM&Scaron;O";
-      }else if (str.find(':nth-child(' + i + ')').attr('value') == "Pošta"){
-        polje_inputov_value[i-1] = "Po&scaron;ta";
+      }else if (str.find(':nth-child(' + i + ')').attr('value') == "Posta"){
+        polje_inputov_value[i-1] = "Posta";
       }else{
         polje_inputov_value[i-1] = str.find(':nth-child(' + i + ')').attr('value')
       }

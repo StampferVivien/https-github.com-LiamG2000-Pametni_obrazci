@@ -4,6 +4,16 @@ include ("config.php");
 include ("functions.php");
 $user_data = check_login($con);
 $userID = $user_data["id"];
+
+if(isset($_GET["param2"])){
+    $paramValue = $_GET["param2"];
+    $paramVprasanja = $_GET["param1"];
+    $paramInputov = $_GET["param3"];
+}else{
+    $paramValue = "";
+    $paramVprasanja = "";
+    $paramInputov =  "";
+}
 ?>
 
 
@@ -58,7 +68,7 @@ $userID = $user_data["id"];
                    <li>
                       <a href="#" class="flex items-center p-2">
                         <ion-icon name="id-card-outline"></ion-icon>
-                        <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input3"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="EMŠO"  ondragstart="dragStart(event)"> EMŠO</div></p></span>
+                        <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input3"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="emso"  ondragstart="dragStart(event)"> emso</div></p></span>
                       </a>
                    </li>
                    <li>
@@ -70,7 +80,7 @@ $userID = $user_data["id"];
                    <li>
                       <a href="#" class="flex items-center p-2">
                         <ion-icon name="mail-outline"></ion-icon>
-                        <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input5"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Pošta"  ondragstart="dragStart(event)"> Pošta</div></p></span>
+                        <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input5"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Posta"  ondragstart="dragStart(event)"> Posta</div></p></span>
                       </a>
                    </li>
                    <li>
@@ -114,6 +124,11 @@ $userID = $user_data["id"];
           <input type="hidden" name="vprasanja" id="vprasanja" on>
           <input type="hidden" name="poljeString" id="poljeString">
           <input type="hidden" name="besedilo" id="besedilo">
+          <?php echo "<input type='hidden' id='besediloIzBaze' value='". $paramValue ."'>"; 
+                echo "<input type='hidden' id='vprasanjaIzBaze' value='". $paramVprasanja ."'>";
+                echo "<input type='hidden' id='StringInputov' value='". $paramInputov ."'>";
+
+                ?>
           <br>
         </div>  
         <?php
@@ -154,6 +169,8 @@ $userID = $user_data["id"];
                 div.removeChild(div.lastChild);
             }
         }
+
+        let besediloEncoded = document.getElementById("besedilo").value
     </script>
 
 
@@ -166,15 +183,57 @@ $userID = $user_data["id"];
             $poljeString = $_POST["poljeString"];
             $coded = base64_encode($poljeString);
             $html = $_POST["besedilo"];
+            #$html = "Tukaj pride besedilo tekstva";
             $besedilo = base64_encode($html);
 
-            
             if(isset($_POST["docPrice"])){
                 $docPrice = $_POST["docPrice"];
             }
 
-            $query = "insert into dokument (naziv, cena, stevilkaDokumenta, vprasanja, poljeString, besedilo, tk_uporabnik) values ('$docName', '$docPrice', '$docId', '$vprasanja', '$coded', '$besedilo', '$userID')";
+            $samoVprasanja = [];
+            $dataTypeVprasanja = [];
 
+            $vprasanjaArray = json_decode($vprasanja);
+            $vprasanjeId = 0;
+
+            $pattern = "/<input.*?value='(.*?)'.*?>/i";
+            preg_match_all($pattern, $poljeString, $matches);
+
+            $inputValues = $matches[1];
+
+            $type = $inputValues;
+
+            print_r($type);
+
+            foreach($vprasanjaArray as $vprasanje){
+                $novoVprasanje = [
+                    "vprasanjeId" => $vprasanjeId,
+                    "vprasanje" => $vprasanje,
+                    "dataType" => $type[$vprasanjeId],
+                    "odgovor" => ""
+                ];
+
+            $vprasanjeId++;
+            
+            $samoVprasanja[] = $novoVprasanje;
+            }
+
+            
+
+            $dokument1 = new Dokument($docName, $docPrice, $samoVprasanja, $besedilo);
+            $dokument1String = serialize($dokument1);
+
+            print_r($dokument1String);
+
+            $wholeDok = base64_encode($dokument1String);
+
+            print_r($wholeDok);
+
+            $query = "insert into dokumenti (dokument_Id, datoteka, poljeString, tk_uporabnik) values ('$docId',  '$wholeDok', '$coded','$userID')";
+
+            #$query = "insert into dokument (naziv, cena, stevilkaDokumenta, vprasanja, poljeString, besedilo, tk_uporabnik) values ('$docName', '$docPrice', '$docId', '$vprasanja', '$coded', '$besedilo', '$userID')";
+
+            
             if(mysqli_query($con, $query) == true){
                 echo "Datoteka uspešno shranjena. Za dostop do nje uporabite sledečo identifikacijsko številko: ";
                 echo "<br>";
@@ -183,7 +242,9 @@ $userID = $user_data["id"];
             }else{
                 echo mysqli_error($con);
             }
+            
         }
+        
     ?>
         <div class="m-1">
       <div x-data="{ showModal : false }">
@@ -241,6 +302,7 @@ $userID = $user_data["id"];
 include ("footer.php");
 ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js " integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0 " crossorigin="anonymous "></script>
+    <script src="../js/premik_strani.js"></script>
     <script src="../js/index.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>  

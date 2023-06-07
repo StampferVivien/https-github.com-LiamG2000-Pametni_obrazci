@@ -2,7 +2,9 @@
 session_start();
 include ("config.php");
 include ("functions.php");
+include("arrays.php");
 $id = $_GET["id"];
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -29,6 +31,176 @@ $id = $_GET["id"];
 
     <div style="text-align:center;">
         <?php
+
+/*
+        $stVprasanj = 0;
+
+        $documentFile = [
+            "naziv" => "Moj testni dokument",
+            "cena" => 9.99,
+            "vprasanja" => [
+                [
+                    "vprasanjeId" => 0,
+                    "vprasanje" => "Vase ime",
+                    "dataType" => "string",
+                    "odgovor" => ""
+                ],
+                [
+                    "vprasanjeId" => 1,
+                    "vprasanje" => "Vas priimek",
+                    "dataType" => "string",
+                    "odgovor" => ""
+                ],
+                [
+                    "vprasanjeId" => 2,
+                    "vprasanje" => "Vas EMSO",
+                    "dataType" => "emso",
+                    "odgovor" => ""
+                ],
+                [
+                    "vprasanjeId" => 3,
+                    "vprasanje" => "Rojstni datum",
+                    "dataType" => "date",
+                    "odgovor" => ""
+                ],
+                [
+                    "vprasanjeId" => 4,
+                    "vprasanje" => "Poštna številka",
+                    "dataType" => "postalNumber",
+                    "odgovor" => ""
+                ],
+                [
+                    "vprasanjeId" => 5,
+                    "vprasanje" => "Telefonska stevilka",
+                    "dataType" => "tel",
+                    "odgovor" => ""
+                ],
+                [
+                    "vprasanjeId" => 6,
+                    "vprasanje" => "Država",
+                    "dataType" => "country",
+                    "odgovor" => ""
+                ]
+            ],
+
+            "besedilo" => "Pozdravljeni, {0} {1}. Vaš EMSO je {2}, rojstni datum je {3}, poštna številka je {4}, telefonska številka je {5}, in država je {6}."
+
+        ];
+        */
+
+
+        $wholeDok = pridobiDokument($con, $id);
+
+        $dokument1Object = base64_decode($wholeDok["datoteka"]);
+
+        $documentFile = unserialize($dokument1Object);
+
+        
+
+
+        // Assuming $object is the object you want to convert into an array
+        $jsonString = json_encode($documentFile);
+        $array = json_decode($jsonString, true);
+
+        #print_r($array);
+
+
+        $poljeString = $wholeDok["poljeString"];
+        #print_r($poljeString);
+        $html = $array["besedilo"];
+        #print_r($html);
+        
+        
+        echo "Naziv dokumenta: " . $array["naziv"];
+        echo "<br>";
+        echo "Cena: " . $array["cena"] . " $.";
+        echo "<br>";
+        echo '<form action="" method="post">';
+        foreach($array["vprasanja"] as $vprasanje){
+            echo '<label for="">'. $vprasanje["vprasanje"] . '</label>';
+            echo " ";
+            if($vprasanje["dataType"] == "Ime"){
+                echo '<input type="text" name="'. $vprasanje["vprasanjeId"] .'" id="" required>';
+                echo "<br>";
+            }
+            else if($vprasanje["dataType"] == "Priimek"){
+                echo '<input type="text" name="'. $vprasanje["vprasanjeId"] .'" id="" required>';
+                echo "<br>";
+            }
+            else if($vprasanje["dataType"] == "Datum"){
+                echo '<input type="date" name="'. $vprasanje["vprasanjeId"] .'" id="" required>';
+                echo "<br>";
+            }
+            else if($vprasanje["dataType"] == "Telefon"){
+                echo '<input type="tel" name="'. $vprasanje["vprasanjeId"] .'" id="" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"  placeholder="000-000-000" required>';
+                echo "<br>";
+            }
+            else if($vprasanje["dataType"] == "emso"){
+                echo '<input type="text" name="'. $vprasanje["vprasanjeId"] .'" class="emsoField" id="" pattern="[0-9]{13}"  placeholder="0000000000000" required>';
+                echo "<br>";
+            }
+            else if($vprasanje["dataType"] == "Posta"){
+                echo '<select name="' . $vprasanje["vprasanjeId"] . '" required>';
+                echo '<option value="">Izberite poštno številko</option>';
+
+                foreach ($postalNumbers as $postalNumber) {
+                    echo '<option value="' . $postalNumber . '">' . $postalNumber . '</option>';
+                }
+                echo '</select>';
+                echo "<br>";
+            }
+            else if($vprasanje["dataType"] == "Država"){
+                echo '<select name="' . $vprasanje["vprasanjeId"] . '" required>';
+                echo '<option value="">Izberite državo</option>';
+
+                foreach ($drzave as $drzava) {
+                    echo '<option value="' . $drzava . '">' . $drzava . '</option>';
+                }
+                echo '</select>';
+                echo "<br>";
+            }
+            else{
+                echo '<input type="text" name="'. $vprasanje["vprasanjeId"] .'" id="" required>';
+                echo "<br>";
+            }
+            
+        }
+        echo '<button type="submit" name="shrani" id="shrani_pdf">Shrani pdf</button>';
+        echo "</form>";
+        
+
+        #gre skozi podano besedilo ter zamenja vprasanja z podanimi odgovori
+        
+
+        
+
+
+        $odgovoriUporabnika = [];
+
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            // Iterate through the submitted form fields
+
+            foreach ($_POST as $fieldName => $fieldValue) {
+                // Store the user input in the $userAnswers array
+                $odgovoriUporabnika[$fieldName] = $fieldValue;
+            }
+        }
+
+        foreach ($array["vprasanja"] as &$question) {
+            $vprasanjeId = $question["vprasanjeId"];
+
+            // Check if the user input value exists for the current question
+            if (isset($odgovoriUporabnika[$vprasanjeId])) {
+                $answer = $odgovoriUporabnika[$vprasanjeId];
+
+                // Update the "odgovor" field with the user's answer
+                $question["odgovor"] = $answer;
+            }
+        }
+
+        $besedilo = base64_decode($array["besedilo"]);
+    
+        /*
         $stVprasanj = 0;
         $odgovori = [];
         $document = pridobiDokument($con, $id);
@@ -53,19 +225,35 @@ $id = $_GET["id"];
             echo '<button type="submit" name="shrani" id="shrani_pdf">Shrani pdf</button>';
             echo "</form>";
         }
+        */
 
+        $vprasanjaRaw = [];
+        
+        $odgovoriDec = [];
+        
+
+        foreach($array["vprasanja"] as $vprasanje){
+            $vprasanjaRaw[] = $vprasanje["vprasanje"];
+            $odgovoriDec[] = $vprasanje["odgovor"];
+        }
+
+        $vprasanjaRaw = json_encode($vprasanjaRaw);
+        print_r($vprasanjaRaw);
+        $odgovoriDec = json_encode($odgovoriDec);
+        print_r($odgovoriDec);
+        
         if(isset($_POST["shrani"])){
-            for ($x = 1; $x <= $stVprasanj; $x++) {
-                $odgovor = $_POST["odgovor".$x];
-                array_push($odgovori, $odgovor);
-              }
-              $odgovoriDec = json_encode($odgovori);
+            $odgovoriDec = json_encode($odgovoriDec);
             echo "<input type='hidden'  id='odgovori' value='". $odgovoriDec."'>";
             echo "<input type='hidden' id='poljeString' value='". $poljeString ."'>";
             echo "<input type='hidden' id='besedilo' value='". $html ."'>";
             echo "<input type='hidden' id='vprasanja' value='". $vprasanjaRaw ."'>";
+
+            
         } 
     ?>
+
+
 </div>
 <a href="index.php" id="backBtn">Nazaj</a>
 <?php

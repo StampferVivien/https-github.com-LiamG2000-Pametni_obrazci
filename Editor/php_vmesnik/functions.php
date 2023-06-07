@@ -304,6 +304,9 @@ function getUserDoc($con, $userId){
 		echo "<td>";
 			echo "<button name='delBtn' value='".$row["id"]."' style='color:red;'>Izbriši</button>";
 		echo "</td>";
+		echo "<td>";
+			echo "<button name='editBtn' value='".$row["id"]."' style='color:black;'>Edit</button>";
+		echo "</td>";
 	echo "</tr>";
 	}
 	echo '</tbody>';
@@ -316,6 +319,25 @@ if(isset($_POST["delBtn"])){
 	$query = "delete from dokument where id='$documentId'";
     $results = mysqli_query($con, $query);
     header("Location: datoteke.php");
+}
+if (isset($_POST["editBtn"])) {
+    $documentId = $_POST["editBtn"];
+    $query = "select * from dokument where id='$documentId'";
+    $results = mysqli_query($con, $query);
+
+    if ($results && mysqli_num_rows($results) > 0) {
+        $document = mysqli_fetch_assoc($results);
+        $dokumentBesedilo = $document["besedilo"];
+        $documentVprasanja = $document["vprasanja"];
+        $documentStringInputov = $document["poljeString"];
+
+        // Redirect to index.php with parameters
+        $redirectUrl = "index.php?param1=" . urlencode($documentVprasanja) . "&param2=" . urlencode($dokumentBesedilo) . "&param3=" . urlencode($documentStringInputov);
+        header("Location: " . $redirectUrl);
+        exit; // Make sure to exit after the header redirect
+    } else {
+        echo "Napaka pri pridobivanju dokumenta";
+    }
 }
 
 //<<<<< KODA UPORABLJENA PRI DATOTEKE.PHP >>>>>
@@ -402,6 +424,18 @@ function genNewDocId($con){
 	}
 }
 
+class Dokument {
+    public $naziv;
+    public $cena;
+    public $vprasanja;
+    public $besedilo;
 
+    public function __construct($naziv, $cena, $vprasanja, $besedilo) {
+        $this->naziv = $naziv;
+        $this->cena = $cena;
+        $this->vprasanja = $vprasanja;
+        $this->besedilo = $besedilo;
+    }
+}
 
   

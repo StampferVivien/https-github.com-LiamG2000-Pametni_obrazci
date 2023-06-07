@@ -8,12 +8,12 @@
                 <?php 
                 if(checkAdmin($con) == true){
                     echo '<li>';
-                        echo '<a href="uporabniki.php">Uporabniki</a>';
+                    echo '<a href="uporabniki.php">Uporabniki</a>';
                     echo '</li>';
                 }
                 if(checkVerify($con) == false){
                     echo '<li>';
-                        echo '<a style="background-color: red; color: white;" href="./potrditevEmail.php">Potrdi email</a>';
+                    echo '<a style="background-color: red; color: white;" href="./potrditevEmail.php">Potrdi email</a>';
                     echo "</li>";
                 }
                 ?>
@@ -24,12 +24,27 @@
                     <a href="../../Engine/php/index.php">Naloži pdf</a>
                 </li>
             </ul>
-            <div id="je_prijavljen" style=" color: white; margin-left: 85%; font-family: 'Times New Roman', Times, serif ;font-size: 20px;">
+            <div id="je_prijavljen" style="color: white; margin-left: 85%; font-family: 'Times New Roman', Times, serif; font-size: 20px;">
                 Prijavljen/a: <?php echo($user_data['uporabnisko_ime'] . "!"); ?>
                 <span id="ime_uporabnika"></span>
-                <button class="btn btn-sm btn-primary btn-block" style="width: 88%; border-width: 2px;" onClick="window.location.href = './logout.php'">Odjava</button>
+                <a onClick="window.location.href = './logout.php'" class="logout-btn">Odjava</a>
             </div>
-            <br />
         </div>
     </div>
 </nav>
+<style>
+    .logout-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #f44336;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .logout-btn:hover {
+        background-color: #d32f2f;
+    }
+</style>

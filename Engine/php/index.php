@@ -2,6 +2,7 @@
 session_start();
 include ("config.php");
 include ("functions.php");
+$ErrRandom = "";
 ?>
 
 <!doctype html>
@@ -17,23 +18,34 @@ include ("functions.php");
 </head>
 <body>
    
-    <?php include ("header.php"); ?>  
+    <?php 
+        include ("header.php"); 
+        include ("navbar.php");
+    ?>  
 
 <div style="text-align: center;">
-    <form action="" method="post">
-        <label for="imeDatoteke">Vnesi identifikacisko številko/naziv dokumenta: </label> <br>
-        <input type="text" name="imeDatoteke" id="">
-        <input type="submit" name="isci" value="Išči">
-    </form>
+    <form name="myform" class="form-detail" method="POST" id="dodajUporabnikaForm">
+	    <div class="form-group">
+	        <label for="dokumentId">Identifikacijska številka dokumenta:</label>
+	        <input type="text" name="dokumentId" id="dokumentId" class="form-control" placeholder="npr. 123456" pattern="[0-9]+" required>
+	    </div>
+        <div class="form-group">
+		    <button type="submit" name="search" class="btn btn-primary" value="Išči">Išči</button>
+			<span class="error"><?php echo $ErrRandom;?></span>
+		</div>
+	</form>
 </div>
 
 <div style="text-align: center;">
     <?php
-        if(isset($_POST["isci"])){
-            $docId = $_POST["imeDatoteke"];
-            $dokumenti = pridobiDokumente($con, $docId);
-            
+        if($_SERVER['REQUEST_METHOD'] == "POST"){
+            $docId = $_POST["dokumentId"];
+        
+            if(!empty($docId)){
+                $dokumenti = pridobiDokumente($con, $docId);
+            }
         }
+
     ?>
 </div>
     
