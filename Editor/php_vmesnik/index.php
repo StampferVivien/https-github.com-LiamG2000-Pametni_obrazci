@@ -121,9 +121,9 @@ if(isset($_GET["param2"])){
     <div class="form-group" id="placljivo">
           <label for="check">Plačljivo</label>
           <input type="checkbox"  value="check" name="check" onclick="prikaziCeno(this)">
-          <input type="hidden" name="vprasanja" id="vprasanja" on>
-          <input type="hidden" name="poljeString" id="poljeString">
-          <input type="hidden" name="besedilo" id="besedilo">
+          <input type="hidden"  name="vprasanja" <?php echo "value='". $paramVprasanja ."'" ?> id="vprasanja">
+          <input type="hidden"  name="poljeString" <?php echo "value='". $paramInputov ."'" ?> id="poljeString">
+          <input type="hidden"  name="besedilo" <?php echo "value='". $paramValue ."'" ?> id="besedilo">
           <?php echo "<input type='hidden' id='besediloIzBaze' value='". $paramValue ."'>"; 
                 echo "<input type='hidden' id='vprasanjaIzBaze' value='". $paramVprasanja ."'>";
                 echo "<input type='hidden' id='StringInputov' value='". $paramInputov ."'>";

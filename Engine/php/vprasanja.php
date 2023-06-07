@@ -38,8 +38,6 @@ $id = $_GET["id"];
 
         $documentFile = unserialize($dokument1Object);
 
-        
-
 
         // Assuming $object is the object you want to convert into an array
         $jsonString = json_encode($documentFile);
@@ -52,7 +50,6 @@ $id = $_GET["id"];
         #print_r($poljeString);
         $html = $array["besedilo"];
         #print_r($html);
-        
         
         echo "Naziv dokumenta: " . $array["naziv"];
         echo "<br>";
@@ -92,7 +89,7 @@ $id = $_GET["id"];
                 echo '</select>';
                 echo "<br>";
             }
-            else if($vprasanje["dataType"] == "Država"){
+            else if($vprasanje["dataType"] == "Drzava"){
                 echo '<select name="' . $vprasanje["vprasanjeId"] . '" required>';
                 echo '<option value="">Izberite državo</option>';
 
