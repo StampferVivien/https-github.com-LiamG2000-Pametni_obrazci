@@ -1,0 +1,24 @@
+Pametni obrazci
+
+Stran za dinamično ustvarjanje in reševanje obrazcev.
+
+Leto izdelave: 2023
+
+Liam Galof 
+Vivien Štampfer
+Alen Kaučič
+
+Domača stran: 
+Vir podatkov: 
+...
+Koda:s https://github.com/LiamG2000/Pametni_obrazci
+
+Kategorizacija: spletna aplikacija
+
+Oznake: OdprtiPodatki, AgilenRazvoj, Javascript, PHP, TinyMCE , MySql
+
+Opis projekta v nekaj odstavkih / vrsticah
+Rešitev omogoča dodajanje elementov in besedila na način "drag and drop" na obrazec, 
+nekateri elementi so določeni nekateri pa so po izbiri tako, da se sestavi obrazec za potrebe vsakega.
+Omogoča tudi pregled svojih elementov in iskanje elementov po imenu. Ko najdemo dokument ga izponimo in ga shranimo v pdf. 
+Za dodajanje obrazca je potrebna registracija in prijava.
