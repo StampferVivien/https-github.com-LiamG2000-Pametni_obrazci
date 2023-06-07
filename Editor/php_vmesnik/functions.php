@@ -1,9 +1,9 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-#require './PHPMailer/src/Exception.php';
-#require './PHPMailer/src/PHPMailer.php';
-#require './PHPMailer/src/SMTP.php';
+require './PHPMailer/src/Exception.php';
+require './PHPMailer/src/PHPMailer.php';
+require './PHPMailer/src/SMTP.php';
 //<<<<< KODA UPORABLJENA PRI REGISTRACIJA.PHP >>>>>
 
 //Nastavljanej vrednosti
@@ -37,7 +37,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 	  $mail->AddAddress($email);
 	  $mail->Subject = 'Potrditvena koda';
 	  $mail->setFrom('pametni.obrazci@gmail.com');
-	  $mail->Body    = '<b>Vaša potrditvena koda za spletno stran PAMETNI OBRAZCI je tukaj!</b>'.$verificationCode;
+	  $mail->Body    = '<b>Vaša potrditvena koda za spletno stran PAMETNI OBRAZCI je tukaj!</b>'. $verificationCode;
   
   
 	  $mail->send();
