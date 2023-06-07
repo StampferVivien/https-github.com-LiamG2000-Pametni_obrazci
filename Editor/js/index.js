@@ -116,7 +116,7 @@ function set_editor_content(){
   for(i=1;i<10;i++){
     polje_inputov_id[i-1] = str.find(':nth-child(' + i + ')').attr('id');
     if(str.find(':nth-child(' + i + ')').attr('value') == "emso"){
-      polje_inputov_value[i-1] = "esmo";
+      polje_inputov_value[i-1] = "emso";
     }else if (str.find(':nth-child(' + i + ')').attr('value') == "Posta"){
       polje_inputov_value[i-1] = "Posta";
     }else{
@@ -141,11 +141,11 @@ function set_editor_content(){
 
 function delete_input(){
   content_html = tinyMCE.get('text_editor').getContent();
-  const content_html_edit = content_html.replaceAll('<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="EM&Scaron;O">', '');
+  const content_html_edit = content_html.replaceAll('<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="emso">', '');
   const content_html_edit2 = content_html_edit.replaceAll('<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Ime">', '');
   const content_html_edit3 = content_html_edit2.replaceAll('<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Priimek">', '');
   const content_html_edit4 = content_html_edit3.replaceAll('<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Datum">', '');
-  const content_html_edit5 = content_html_edit4.replaceAll('<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Po&scaron;ta">', '');
+  const content_html_edit5 = content_html_edit4.replaceAll('<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Posta">', '');
   const content_html_edit6 = content_html_edit5.replaceAll('<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Kraj">', '');
   const content_html_edit7 = content_html_edit6.replaceAll('<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Drzava">', '');
   const content_html_edit8 = content_html_edit7.replaceAll('<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Telefon">', '');
@@ -159,11 +159,11 @@ function add_id_to_input(){
   console.log(event_value);
   placeholder = document.getElementById("input_placeholder").value
   content_html = tinyMCE.get('text_editor').getContent();
-  const content_html_edit = content_html.replaceAll('<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="EM&Scaron;O">', `<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="EM&Scaron;O" id='${i}'>`);
+  const content_html_edit = content_html.replaceAll('<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="emso">', `<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="emso" id='${i}'>`);
   const content_html_edit2 = content_html_edit.replaceAll('<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Ime">', `<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Ime" id='${i}'>`);
   const content_html_edit3 = content_html_edit2.replaceAll('<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Priimek">', `<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Priimek" id='${i}'>`);
   const content_html_edit4 = content_html_edit3.replaceAll('<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Datum">', `<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Datum" id='${i}'>`);
-  const content_html_edit5 = content_html_edit4.replaceAll('<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Po&scaron;ta">', `<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Po&scaron;ta" id='${i}'>`);
+  const content_html_edit5 = content_html_edit4.replaceAll('<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Posta">', `<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Posta" id='${i}'>`);
   const content_html_edit6 = content_html_edit5.replaceAll('<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Kraj">', `<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Kraj" id='${i}'>`);
   const content_html_edit7 = content_html_edit6.replaceAll('<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Drzava">', `<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Drzava" id='${i}'>`);
   const content_html_edit8 = content_html_edit7.replaceAll('<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Telefon">', `<input style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" value="Telefon" id='${i}'>`);
@@ -178,11 +178,11 @@ tinymce.get('text_editor').setContent(`${content_html_edit9}`);
   	polje_string += `<input value='${inputValue}' style='border-radius: 8px; border: 2px solid black;' readonly>`;
   }
   
-  const content_input_1 = polje_string.replaceAll("<input value='emso' style='border-radius: 8px; border: 2px solid black;' readonly>", `<input value="EM&Scaron;O" style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text"  id='${i}'>`);
+  const content_input_1 = polje_string.replaceAll("<input value='emso' style='border-radius: 8px; border: 2px solid black;' readonly>", `<input value='emso' style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text"  id='${i}'>`);
   const content_input_2  = content_input_1.replaceAll("<input value='Ime' style='border-radius: 8px; border: 2px solid black;' readonly>", `<input value='Ime' style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" id='${i}'>`);
   const content_input_3  = content_input_2.replaceAll("<input value='Priimek' style='border-radius: 8px; border: 2px solid black;' readonly>", `<input value='Priimek' style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" id='${i}'>`);
   const content_input_4  = content_input_3.replaceAll("<input value='Datum' style='border-radius: 8px; border: 2px solid black;' readonly>", `<input value='Datum' style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text"  id='${i}'>`);
-  const content_input_5  = content_input_4.replaceAll("<input value='Posta' style='border-radius: 8px; border: 2px solid black;' readonly>", `<input value='Po&scaron;ta' style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" id='${i}'>`);
+  const content_input_5  = content_input_4.replaceAll("<input value='Posta' style='border-radius: 8px; border: 2px solid black;' readonly>", `<input value='Posta' style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" id='${i}'>`);
   const content_input_6  = content_input_5.replaceAll("<input value='Kraj' style='border-radius: 8px; border: 2px solid black;' readonly>", `<input value='Kraj' style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" id='${i}'>`);
   const content_input_7  = content_input_6.replaceAll("<input value='Drzava' style='border-radius: 8px; border: 2px solid black;' readonly>", `<input value='Drzava' style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" id='${i}'>`);
   const content_input_8  = content_input_7.replaceAll("<input value='Telefon' style='border-radius: 8px; border: 2px solid black;' readonly>", `<input value='Telefon' style="border-radius: 8px; border: 2px solid black;" readonly="readonly" type="text" id='${i}'>`);

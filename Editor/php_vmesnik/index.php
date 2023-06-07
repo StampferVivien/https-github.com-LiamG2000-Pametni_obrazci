@@ -92,7 +92,7 @@ if(isset($_GET["param2"])){
                    <li>
                       <a href="#" class="flex items-center p-2">
                         <ion-icon name="earth-outline"></ion-icon>
-                        <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input7"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Država"  ondragstart="dragStart(event)"> Država</div></p></span>
+                        <span class="flex-1 ml-3 whitespace-nowrap"><p draggable="true" id="input7"><div draggable="true" class=" hover:border-blue-500 w-44 h-7 border-2 border-gray-600 rounded-lg" id="Drzava"  ondragstart="dragStart(event)"> Drzava</div></p></span>
                       </a>
                    </li>
                    <li>
@@ -170,7 +170,6 @@ if(isset($_GET["param2"])){
             }
         }
 
-        let besediloEncoded = document.getElementById("besedilo").value
     </script>
 
 
@@ -199,6 +198,8 @@ if(isset($_GET["param2"])){
             $pattern = "/<input.*?value='(.*?)'.*?>/i";
             preg_match_all($pattern, $poljeString, $matches);
 
+            print_r($poljeString);
+
             $inputValues = $matches[1];
 
             $type = $inputValues;
@@ -223,11 +224,7 @@ if(isset($_GET["param2"])){
             $dokument1 = new Dokument($docName, $docPrice, $samoVprasanja, $besedilo);
             $dokument1String = serialize($dokument1);
 
-            print_r($dokument1String);
-
             $wholeDok = base64_encode($dokument1String);
-
-            print_r($wholeDok);
 
             $query = "insert into dokumenti (dokument_Id, datoteka, poljeString, tk_uporabnik) values ('$docId',  '$wholeDok', '$coded','$userID')";
 

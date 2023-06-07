@@ -344,10 +344,33 @@ if (isset($_POST["editBtn"])) {
     $query = "select * from dokumenti where dokument_Id='$documentIdNumber'";
     $results = mysqli_query($con, $query);
 
+
+	$document = mysqli_fetch_assoc($results);
+	#print_r($document);
+	$datoteka = $document["datoteka"];
+	#print_r($datoteka);
+	$decodedFile = base64_decode($datoteka);
+	#print_r($decodedFile);
+	$dokumentNeseria = unserialize($decodedFile);
+	#print_r($dokumentNeseria);
+	$jsonString = json_encode($dokumentNeseria);
+    $array = json_decode($jsonString, true);
+
+
+	print_r($document["poljeString"]);
+
+
+	$document["poljeString"];
+
+	$vprasanja = [];
+
+	foreach($array["vprasanja"] as $vprasanje){
+		$vprasanja[] = $vprasanje["vprasanje"];
+	}
+
     if ($results && mysqli_num_rows($results) > 0) {
-        $document = mysqli_fetch_assoc($results);
-        $dokumentBesedilo = $document["besedilo"];
-        $documentVprasanja = $document["vprasanja"];
+        $dokumentBesedilo = $array["besedilo"];
+        $documentVprasanja = json_encode($vprasanja);
         $documentStringInputov = $document["poljeString"];
 
         // Redirect to index.php with parameters

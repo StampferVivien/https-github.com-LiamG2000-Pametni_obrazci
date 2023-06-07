@@ -182,7 +182,7 @@ $id = $_GET["id"];
 
         $vprasanjaRaw = json_encode($vprasanjaRaw);
         print_r($vprasanjaRaw);
-    
+        
         if(isset($_POST["shrani"])){
             $odgovoriDec = json_encode($odgovoriDec);
             echo "<input type='hidden'  id='odgovori' value='". $odgovoriDec."'>";
