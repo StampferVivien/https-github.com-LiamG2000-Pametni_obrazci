@@ -23,7 +23,7 @@ Za editor obrazcev smo uporabili napredno odprtokodno knjižnico TinyMCE, ki nam
 
 Obrazec poiščemo po imenu obrazca oziroma dokumenta izpolnimo polja v obrazcu z podatki in obrazec z klikom shranimo v pdf obliko. 
 
-![Test Image 4](https://github.com/LiamG2000/Pametni_obrazci/blob/master/slike/Slika16.png)
+![Test Image 4](https://github.com/LiamG2000/Pametni_obrazci/blob/master/slike/image6.png)
 
 ## Navodila za nameščanje in uporabo aplikacije
 
@@ -35,10 +35,9 @@ https://www.apachefriends.org/download.html, na XAMPP control panelu vklopimo Ap
 Gremo na localhost/phpmyadmin in uvozimo bazo, ki je dodana v projektu.
 
 Aplikacijo odpremo in jo lahko začnemo uporabljati. Najprej se registriramo in prijavimo nato pa lahko začnemo ustvarjati svoj obrazec, ki ga poimenujemo. Obrazec lahko nato najdemo po imenu in ga izpolnimo ter pretvorimo v pdf s klikom na gumb.
-## Link do spletne strani
 
-Spletna stran je dostopna tudi preko spodnjega linka:
- https://prototypal-confusio.000webhostapp.com/
+
+
 ## Avtorji
 
 Liam Galof, Vivien Štampfer, Alen Kaučič
