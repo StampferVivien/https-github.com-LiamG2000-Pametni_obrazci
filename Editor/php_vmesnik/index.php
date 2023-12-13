@@ -151,9 +151,15 @@ if(isset($_GET["param2"])){
                 <button type="button" onclick="set_editor_content()" style="display: none;">Naloži tekst</button>
              </div>
         </aside>
-        <main class="flex flex-col w-screen">
-            <div contenteditable="true" id="text_editor"></div>
-        </main>
+        <style>
+    #text_editor_container {
+        width: 80%;
+    }
+</style>
+       <main class="flex flex-col w-screen">
+    <div id="text_editor_container">
+        <textarea id="text_editor"></textarea>
+    </div>
     </div>
     <div class="form-group" id="placljivo">
           <label for="check">Plačljivo</label>

@@ -36,6 +36,9 @@ Gremo na localhost/phpmyadmin in uvozimo bazo, ki je dodana v projektu.
 
 Aplikacijo odpremo in jo lahko začnemo uporabljati. Najprej se registriramo in prijavimo nato pa lahko začnemo ustvarjati svoj obrazec, ki ga poimenujemo. Obrazec lahko nato najdemo po imenu in ga izpolnimo ter pretvorimo v pdf s klikom na gumb.
 
+## Link do spletne strani
+
+https://prototypal-confusio.000webhostapp.com/
 
 
 ## Avtorji

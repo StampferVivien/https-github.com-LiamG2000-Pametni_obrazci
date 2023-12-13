@@ -8,8 +8,8 @@ Liam Galof
 Vivien Štampfer
 Alen Kaučič
 
-Domača stran: 
-Vir podatkov: 
+Domača stran: https://prototypal-confusio.000webhostapp.com/
+Vir podatkov: https://prototypal-confusio.000webhostapp.com/
 ...
 Koda:s https://github.com/LiamG2000/Pametni_obrazci
 
